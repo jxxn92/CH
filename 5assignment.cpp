@@ -126,7 +126,7 @@ void refRet1() {
 
 void refRet2() {
      Container c("C");
-    c.newIntArray().inputIntArray().printIntArray(); 
+    //c.newIntArray().inputIntArray().printIntArray(); 
 }
 
 void explicitCopy() {
