@@ -1,4 +1,4 @@
-// 수정본!!
+// 수정본!! Ver 3
 /*-----------------------------------------------------
  *  프로그램 소스 코드
  *-----------------------------------------------------*/
@@ -48,7 +48,7 @@ void PersonManager::show(){
 }
 
 int PersonManager::serarch(string str){
-    int cnt;
+    int cnt = 0;
     for(int i = 0; i < nofp ; i++){
         if(p[i].get_first() == str || p[i].get_last() == str){
             cnt++;
