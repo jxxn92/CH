@@ -19,8 +19,22 @@ public:
     void setTitle(string title);
     string getTitle();
     void printIntArray();
-    void newIntArray();
-    void inputIntArray();
+    Container& newIntArray(){
+    if (arr != nullptr){
+        delete [] arr;
+    }
+    cout << "element numbers of int array[]? ";
+    cin >> size;
+    arr = new int[size];
+    return *this;
+}
+    Container& inputIntArray(){ 
+    cout << "input " << size << " integers: ";
+    for (int i = 0; i < size; ++i){
+        cin >> arr[i];
+        }
+    return *this;
+}
     void inputTitle(Container &d);
 };
 
@@ -28,11 +42,11 @@ Container::Container():Container("no-title") { }
 
 Container::Container(string title):Container(title,0) { }
 
-Container::Container(string title, int size) {
+Container::Container(string title, int size):title(title),size(size){
     this -> title = title;
-    this->size = size;
+    this->size = size; 
     if(size > 0){
-        arr = new int[size];
+    arr = new int[size];
     }
     else{
         arr = nullptr;
@@ -65,22 +79,20 @@ void Container::printIntArray() {
     cout << endl;
 }
 
-void Container::newIntArray() {
-    if (arr != nullptr){
-        delete [] arr;
-    }
-    cout << "element numbers of int array[]? ";
-    cin >> size;
-    arr = new int[size];
+// void Container::newIntArray() {
+//     if (arr != nullptr){
+//         delete [] arr;
+//     }
+//     cout << "element numbers of int array[]? ";
+//     cin >> size;
+//     arr = new int[size];
+// }
 
-}
-
-void Container::inputIntArray() { 
-    cout << "input " << size << " integers: ";
-    for (int i = 0; i < size; ++i)
-        cin >> arr[i];
-
-}
+// void Container::inputIntArray() { 
+//     cout << "input " << size << " integers: ";
+//     for (int i = 0; i < size; ++i)
+//         cin >> arr[i];
+// }
 void inputTitle(Container &d){
     cout << "input title: ";
     string s;
@@ -127,7 +139,7 @@ void refRet1() {
 
 void refRet2() {
      Container c("C");
-    //c.newIntArray().inputIntArray().printIntArray(); 
+    c.newIntArray().inputIntArray().printIntArray(); 
 }
 
 void explicitCopy() {
