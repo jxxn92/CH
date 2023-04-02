@@ -30,9 +30,9 @@ Container::Container(string title):Container(title,0) { }
 
 Container::Container(string title, int size) {
     this -> title = title;
-    this->size = size; // 추후 수정할 것
+    this->size = size;
     if(size > 0){
-        int *arr = new int[size];
+        arr = new int[size];
     }
     else{
         arr = nullptr;
@@ -45,8 +45,9 @@ Container::Container(string title, int size) {
 
 Container::~Container() {
     cout << "~Container(): "; printIntArray();
-    if (arr != nullptr)
+    if (arr != nullptr){
         delete [] arr;
+    }
 }
 
 void Container::setTitle(string title) {
