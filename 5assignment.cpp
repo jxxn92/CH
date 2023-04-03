@@ -59,12 +59,12 @@ Container::Container(string title, int size):title(title),size(size){
     cout << "Container(): "; printIntArray();
 }
 Container::Container(const Container& c){
-    title = c.title;
-    size = c.size;
+    this -> title = c.title;
+    this -> size = c.size;
     if(size > 0){
         arr = new int[size];
         for(int i = 0 ; i < size; i++){
-            arr[i] = c.arr[i];
+            this -> arr[i] = c.arr[i];
         }
     }
     else{
