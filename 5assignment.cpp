@@ -1,5 +1,6 @@
 #include <iostream>
-#include <string>
+//#include <string>
+#include <cstring>
 using namespace std;
 
 /******************************************************************************
@@ -14,6 +15,7 @@ public:
     Container();
     Container(string title);
     Container(string title, int size);
+    Container(const Container& Container);    
     ~Container();
 
     void setTitle(string title);
@@ -27,14 +29,14 @@ public:
     cin >> size;
     arr = new int[size];
     return *this;
-}
+    }
     Container& inputIntArray(){ 
     cout << "input " << size << " integers: ";
     for (int i = 0; i < size; ++i){
         cin >> arr[i];
         }
     return *this;
-}
+    }
     void inputTitle(Container &d);
 };
 
@@ -55,6 +57,20 @@ Container::Container(string title, int size):title(title),size(size){
         arr[i] = 0;
     }
     cout << "Container(): "; printIntArray();
+}
+Container::Container(const Container& c){
+    title = c.title;
+    size = c.size;
+    if(size > 0){
+        arr = new int[size];
+        for(int i = 0 ; i < size; i++){
+            arr[i] = c.arr[i];
+        }
+    }
+    else{
+        arr = nullptr;
+    }
+    cout << "Container(Container& c): "; printIntArray();
 }
 
 Container::~Container() {
@@ -138,7 +154,7 @@ void refRet1() {
 }
 
 void refRet2() {
-     Container c("C");
+    Container c("C");
     c.newIntArray().inputIntArray().printIntArray(); 
 }
 
@@ -153,9 +169,31 @@ void explicitCopy() {
     c2.inputIntArray().printIntArray();
     c1.printIntArray();
 }
-
-void implicitCopy() {
+void callByValue(Container v) {
+    cout << "callByValue" << endl;
+    v.setTitle("V");
+    v.inputIntArray().printIntArray();
 }
+Container returnValue(Container& r) {
+    cout << "returnValue" << endl;
+    return r;  // 자동으로 복사생성자 호출
+}
+void implicitCopy() {
+    Container a("A", 2);
+    a.inputIntArray().printIntArray();
+    cout << "---" << endl;
+    Container b = a; // 자동으로 복사생성자 호출
+    b.setTitle("B");
+    b.inputIntArray().printIntArray();
+    cout << "---" << endl;
+    callByValue(a); // 자동으로 복사생성자 호출
+    cout << "---" << endl;
+    Container c = returnValue(a);
+    c.setTitle("C");
+    c.inputIntArray().printIntArray();
+    cout << "---" << endl;
+}
+
 
 string menuStr =
 "****************************** Main Menu ******************************\n"
@@ -179,4 +217,3 @@ int main() {
     }
     cout << "Good bye!!" << endl;
 }
-
