@@ -7,8 +7,8 @@
 // 아래 코드와 주석을 이해하고 필요한 내용을 코딩하라.
 
 #include <iostream>
-#include <cstring>
 #include <string>
+#include <cstring>
 using namespace std;
 
 
@@ -19,7 +19,7 @@ private:
 	int tos;            // 스택의 top을 가리키는 인덱스
 public:
 	MyStack(int size);    // 생성자 스택의 최대 크기를 입력 받아서 element 객체 배열을 생성해줌.
-	MyStack(MyStack& s);  // 깊은 복사 생성자
+	MyStack(const MyStack& s);  // 깊은 복사 생성자
 	~MyStack();           // 소멸자
 
 	bool push(string item); // item을 스택에 삽입
@@ -34,16 +34,29 @@ public:
 
 // 여기에 MyStack의 모든 멤버 함수들을 작성하라.
 MyStack::MyStack(int size){
+	this -> size = size;
+	this -> tos = 0;
+	cout << "MyStack(" << size << ")" << endl;
+	element = new string[size];
 
 }
-MyStack::MyStack(MyStack& s){
-
+MyStack::MyStack(const MyStack& s){
+	this -> size = s.size;
+	this -> tos = s.tos;
+	this -> element = new string[size];
 }
 MyStack::~MyStack(){
-
+	delete [] element;
 }
 bool MyStack::push(string item){
-
+	if(tos >= size){
+		return false;
+		}
+	else{
+		element[tos] = item;
+		tos++;
+		return true;
+	}
 }
 bool MyStack::pop(string &item){
 
