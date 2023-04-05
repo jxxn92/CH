@@ -26,20 +26,20 @@ public:
 			// 스택이 가득 차 있으면 false를, 아니면 true 리턴
 	bool pop(string &item); // 스택의 탑에 있는 값을 item에 반환  그리고 top에 있는 자료 삭제
 	bool peek(string &item); // 스택의 탑에 있는 값을 item에 반환
-	v;  // 스택 내용 출력
+	void print_stack();  // 스택 내용 출력
 
 };
 
 // 위에 코드는 수정 불가
 
 // 여기에 MyStack의 모든 멤버 함수들을 작성하라.
-MyStack(int size){
+MyStack::MyStack(int size){
 
 }
-MyStack(MyStack& s){
+MyStack::MyStack(MyStack& s){
 
 }
-~MyStack(){
+MyStack::~MyStack(){
 
 }
 bool MyStack::push(string item){
