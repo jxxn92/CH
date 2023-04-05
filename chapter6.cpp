@@ -32,6 +32,7 @@ public:
     Cal(int x, int y);
     ~Cal();
     void function_overload(int x, int y);
+    void default_parameter(int x, int y);
     int add();
     int add(int x);
     int add(int x, int y);
