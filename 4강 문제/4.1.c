@@ -61,5 +61,7 @@ int main(void){
     printf("%d\n",pop());
     printf("%d\n",pop());
 
+    printf("컴퓨터공학과 20203193 박준걸");
+
     return 0;
 }

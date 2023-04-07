@@ -66,5 +66,8 @@ int main(void){
     printf("이름 : %s\n",oe.name);
     printf("주소 : %s\n",oe.address);
 
+    
+    printf("컴퓨터공학과 20203193 박준걸");
+
     return 0;
 }

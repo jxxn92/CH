@@ -36,9 +36,7 @@ void push(StackType *s,int item){
         s->capacity *= 5;
         s->data = (int *)realloc(s->data,s->capacity * sizeof(int));
     }
-    else{
-        s->data[++(s->top)] = item;
-    }
+    s->data[++(s->top)] = item;
 }
 int pop(StackType *s){
     if(is_empty(s)){
@@ -63,6 +61,7 @@ int main(void){
     
     free(s.data);
     
+    printf("컴퓨터공학과 20203193 박준걸");
     return 0;
 
 }
