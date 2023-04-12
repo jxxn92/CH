@@ -62,6 +62,7 @@ int* ArrayUtility2::remove(int s1[], int s2[], int size_s1, int size_s2, int&ret
       }
    }
    retSize = cnt;
+   
    int *q = new int[retSize];
 }
  
