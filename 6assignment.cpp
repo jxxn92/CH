@@ -54,16 +54,29 @@ int* ArrayUtility2::remove(int s1[], int s2[], int size_s1, int size_s2, int&ret
    int cnt = 0;
 
    for(int i = 0 ; i < size_s1; i++){
+      bool tf = false;
       for(int j = 0; j < size_s2; j++){
          if (s1[i] == s2[j]){
-            p[cnt] = s1[i];
-            cnt++;
+            tf = true;
+            break;
          }     
       }
+      if(!tf){
+         p[cnt] = s1[i];
+         cnt++; 
+         }
    }
    retSize = cnt;
-   
+/*     for(int j = 0 ; j < retSize ; j++){
+       cout << p[j] << "  " << endl;
+   } */ 
    int *q = new int[retSize];
+   for(int j = 0 ; j < retSize; j++){
+      q[j] = p[j];
+   }
+   delete [] p;
+   
+   return q;
 }
  
 // 아래 코드 수정 불가
