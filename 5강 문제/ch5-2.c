@@ -7,7 +7,7 @@ typedef int element;
 typedef struct{
     int data[MAX_SIZE];
     int front;
-    int reer;
+    int rear;
 } QueueType;
 
 void error(char *message){ //원형큐가 오류가나면 오류를 출력하는 함수
@@ -17,11 +17,11 @@ void error(char *message){ //원형큐가 오류가나면 오류를 출력하는 함수
 
 void init_queue(QueueType *q){ //원형큐를 초기화 하는 함수
     q -> front =  0;
-    q -> reer = 0;
+    q -> rear = 0;
 }
 
 int is_empty(QueueType *q){  //원형큐가 비어있는지 확인하는 함수
-    if(q->front == q->reer){
+    if(q->front == q->rear){
         return 1;
     }
     else{
@@ -29,8 +29,19 @@ int is_empty(QueueType *q){  //원형큐가 비어있는지 확인하는 함수
     }
 }
 
+int get_count(QueueType *q){
+    int cnt = 0;
+    if(is_empty(q)){
+        error("함수가 공백상태입니다.");
+        exit(1);
+    }
+    else{
+        cnt = ((q->rear) % MAX_SIZE) - ((q->front)%MAX_SIZE);
+    }
+    return cnt;
+}
 int is_full(QueueType *q){ //원형큐가 꽉 차있는지 확인하는 함수
-    if(((q->reer)+1)%MAX_SIZE == q->front){
+    if(((q->rear)+1)%MAX_SIZE == q->front){
         return 1;
     }
     else{
@@ -39,13 +50,13 @@ int is_full(QueueType *q){ //원형큐가 꽉 차있는지 확인하는 함수
 }
 
 void queue_print(QueueType *q){ // 큐의 값을 출력하는 함수 
-    printf("QUEUE(front=%d reer=%d) = ",q->front,q->reer);
+    printf("QUEUE(front=%d rear=%d) = ",q->front,q->rear);
     if(!is_empty(q)){ //비어있지 않으면 값을 추가
         int i = q -> front;
         do{
             i = (i+1) % MAX_SIZE;
             printf("%d | ",q->data[i]);
-            if(i == q-> reer){ 
+            if(i == q-> rear){ 
                 break;
             }
         }while(i != q -> front);
@@ -58,8 +69,8 @@ void enqueue(QueueType *q,element item){ //큐에 값을 추가하는 함수
         error("큐가 포화상태입니다.");
         return;
     }
-    q->reer = (q->reer + 1) % MAX_SIZE;
-    q->data[q->reer] = item;
+    q->rear = (q->rear + 1) % MAX_SIZE;
+    q->data[q->rear] = item;
 
 }
 
@@ -85,6 +96,7 @@ int main(void){
         scanf("%d",&element);
         enqueue(&q,element);
         queue_print(&q);
+        printf("\n%d\n",get_count(&q));
         
     }
     printf("큐가 포화상태입니다.\n\n");
@@ -94,6 +106,7 @@ int main(void){
         element = dequeue(&q);
         printf("꺼내진 정수 : %d \n",element);
         queue_print(&q);
+        printf("\n%d\n",get_count(&q));
     }
 
     printf("큐는 공백상태입니다.\n");
