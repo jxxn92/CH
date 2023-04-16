@@ -58,6 +58,7 @@
     }
     car_dealer::~car_dealer(){
         delete [] p;
+        cout << "delete [] p;";
     }
     void car_dealer::search_model(string model){
         for(int i = 0; i < num_cars; i++){
@@ -67,7 +68,11 @@
         }
     }
     void car_dealer::search(string model, int year){
-
+        for(int i = 0; i < num_cars; i++){
+            if(p[i].model == model && p[i].year == year){
+                p[i].print_car_info();
+            }
+        }
     }
     //아래 코드는 수정 불가
 
