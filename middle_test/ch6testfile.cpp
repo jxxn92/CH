@@ -1,6 +1,6 @@
 /**************************************************
- 아래는 Book 클래스를 선언하고 구현한 프로그램이다.
- 프로그램의 실행결과를 참고하여 나머지 코드를 구현하라.
+    아래는 Book 클래스를 선언하고 구현한 프로그램이다.  
+    프로그램의 실행결과를 참고하여 나머지 코드를 구현하라.
  **************************************************/
 #include <iostream>
 #include <cstring>
@@ -13,13 +13,17 @@ class Book {
     string *pTitle; // 제목
     int *pPrice;    // 가격
     int *pPages;    // 페이지수
-
+    static int totalcount;
+    static int currentcount;
 public:
     // 생성자는 오직 하나만 작성하라. (복사생성자는 예외)
     // 필요한 경우 출력결과를 참조하여 매개변수를 적절히 수정하라.
-    Book(string title, int price, int pages);
+    Book(string title = "no_title", int price = 0, int pages = 1);
+    Book(const Book& b);
     Book& show();
     Book& set(const string& title);
+    ~Book();
+    static void printBookCount();
 };
 
 /******************************************************************************
@@ -31,6 +35,15 @@ Book::Book(string title, int price, int pages) {
     pTitle = new string(title);
     pPrice = new int(price);
     pPages = new int(pages);
+    totalcount++;
+    currentcount++;
+}
+
+Book::~Book(){
+    delete pTitle;
+    delete pPrice;
+    delete pPages;
+    currentcount--;
 }
 
 Book& Book::show() {
@@ -43,6 +56,25 @@ Book& Book::set(const string& title) {
     *pPrice += 100;
     *pPages += 1;
     return *this;
+}
+
+Book::Book(const Book& b){
+
+    pTitle = new string;
+    pPrice = new int;
+    pPages = new int;
+
+    *pTitle = *b.pTitle;
+    *pPrice = *b.pPrice;
+    *pPages = *b.pPages;
+    cout <<"Book(const Book& b): title: "<< *pTitle <<", price: "<< *pPrice <<", pages: "<< *pPages << endl;
+    currentcount++;
+    totalcount++;
+}
+int Book::totalcount = 0;
+int Book::currentcount = 0;
+void Book::printBookCount(){
+    cout << "talBooks: " << totalcount << ", currentBooks: "<< currentcount << endl;
 }
 
 /******************************************************************************
@@ -68,7 +100,7 @@ void copyConst() {
 }
 
 void staticMembers() {
-    /*Book::printBookCount();
+    Book::printBookCount();
     Book *books = new Book[10];
     Book::printBookCount();
 
@@ -79,7 +111,7 @@ void staticMembers() {
     Book::printBookCount();
 
     delete[] books;
-    Book::printBookCount();*/
+    Book::printBookCount();
 }
 
 /******************************************************************************
@@ -107,7 +139,8 @@ int main() {
     cout << "Good bye!!" << endl;
 }
 
-/* ===============================================================================
+/* 
+===============================================================================
 == 문제 1
 =============================================================================== 
 // 아래 [실행결과 1]처럼 출력되게 이 클래스의 생성자와 소멸자를 구현하라.
@@ -177,5 +210,4 @@ totalBooks: 15, currentBooks: 5
 --------------------------
 totalBooks: 15, currentBooks: 0
 --------------------------
-
  */
