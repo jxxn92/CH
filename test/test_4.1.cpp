@@ -1,35 +1,44 @@
 #include <iostream>
 #include <string>
-#include <cstring>
 using namespace std;
 
-class hobbit{
+class hobbit {
 public:
     string name;
     int age;
-    //여기에 코드 작성 
+
     hobbit();
+    hobbit(string name,int age);
     ~hobbit();
-    void set_name();
-    void set_age();
+    void set_age(int age);
+    void set_name(string name);
     void print();
-    hobbit* pointer(){return this;}
+    hobbit* pointer();
 };
 
-//여기에 함수 작성...
-
 hobbit::hobbit(){
+    name = "Baggins";
+    age = 100;
 }
-
+hobbit::hobbit(string name,int aage){
+    this -> name = name;
+    this -> age = age;
+}
 hobbit::~hobbit(){
+
 }
-void hobbit::set_name(){
+void hobbit::set_age(int age){
+    this -> age = age;
 }
-void hobbit::set_age(){
+void hobbit::set_name(string name){
+    this -> name = name;
+}
+void hobbit::print(){
+    cout << name << " age " << age << endl;
 }
 
-void hobbit::print(){
-    cout << name << " age " << age << endl; 
+hobbit* hobbit::pointer(){
+    return this;
 }
 
 int main()
@@ -37,20 +46,20 @@ int main()
     string n;
     int a;
     cout << "Enter name" << endl;
-    cin >> n; 
+    cin >> n;
     cout << "Enter age" << endl;
-    cin >> a; 
+    cin >> a;
 
     hobbit frodo, bilbo;
-    set_age(&frodo, a);  //frodo의 age 변경 
-    set_name(&frodo, n); //frodo의 name 변경 
-    print(frodo); //출력 내용 확인
-    print(bilbo); //출력 내용 확인 
-    
+    frodo.set_age(a);  //frodo의 age 변경 
+    frodo.set_name(n); //frodo의 name 변경 
+    frodo.print(); //출력 내용 확인
+    bilbo.print(); //출력 내용 확인 
+
     hobbit* ptr;
     ptr = frodo.pointer(); // frodo의 포인터 반환(return)
-    set_age(ptr, a + 1); // ptr의 age 변경 
-    print(*ptr); //출력 내용 확인
-    
+    ptr -> set_age(a + 1); // ptr의 age 변경 
+    ptr -> print();
+
     return 0;
 }
