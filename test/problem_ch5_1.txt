@@ -1,6 +1,6 @@
 /**************************************************
- ì•„ë˜ëŠ” Student í´ë˜ìŠ¤ë¥¼ ì„ ì–¸í•˜ê³  êµ¬í˜„í•œ í”„ë¡œê·¸ë¨ì´ë‹¤.
- í”„ë¡œê·¸ë¨ì˜ ì‹¤í–‰ê²°ê³¼ë¥¼ ì°¸ê³ í•˜ì—¬ ë‚˜ë¨¸ì§€ ì½”ë“œë¥¼ êµ¬í˜„í•˜ë¼.
+ ¾Æ·¡´Â Student Å¬·¡½º¸¦ ¼±¾ğÇÏ°í ±¸ÇöÇÑ ÇÁ·Î±×·¥ÀÌ´Ù.
+ ÇÁ·Î±×·¥ÀÇ ½ÇÇà°á°ú¸¦ Âü°íÇÏ¿© ³ª¸ÓÁö ÄÚµå¸¦ ±¸ÇöÇÏ¶ó.
  **************************************************/
 
 #include < iostream >
@@ -13,63 +13,63 @@ class Student {
     char *name;
     char *address;
 public  :
-    Student(int id, const char* name, const char* address);  // ìƒì„±ì 
-    Student(Student& student);                               // ë³µì‚¬ìƒì„±ì 
-    void set_id(int id);                                     // ë©¤ë²„ë³€ìˆ˜ id ê°’ ë³€ê²½
-    void set_name(const char* name);                         // ë©¤ë²„ë³€ìˆ˜ name ê°’ ë³€ê²½
-    void set_address(const char* address);                   // ë©¤ë²„ë³€ìˆ˜ address ê°’ ë³€ê²½
-    void show();                                             // ë©¤ë²„ë³€ìˆ˜ id, name,address ê°’ ì¶œë ¥
-    ~Student();                                              // ì†Œë©¸ì
+    Student(int id, const char* name, const char* address);  // »ı¼ºÀÚ 
+    Student(Student& student);                               // º¹»ç»ó¼ºÀÚ 
+    void set_id(int id);                                     // ¸â¹öº¯¼ö id °ª º¯°æ
+    void set_name(const char* name);                         // ¸â¹öº¯¼ö name °ª º¯°æ
+    void set_address(const char* address);                   // ¸â¹öº¯¼ö address °ª º¯°æ
+    void show();                                             // ¸â¹öº¯¼ö id, name,address °ª Ãâ·Â
+    ~Student();                                              // ¼Ò¸êÀÚ
 };
-// ìœ„ì— ì½”ë“œëŠ” ìˆ˜ì • ë¶ˆê°€
+// À§¿¡ ÄÚµå´Â ¼öÁ¤ ºÒ°¡
 
-// ì•„ë˜  ì½”ë“œ ì‘ì„±
+// ¾Æ·¡  ÄÚµå ÀÛ¼º
 Student::Student(int id, const char* name, const char* address)
 {
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
 
 Student::Student(Student& student)
 {
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
 Student::~Student(){
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
 void Student::set_id(int id)
 {
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
 
 void Student::set_name(const char* name)
 {
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
 
 void Student::set_address(const char* address)
 {
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
 
 void Student::show()
 {
-  // ì½”ë“œ ì‘ì„±
+  // ÄÚµå ÀÛ¼º
 }
 
-// main ìˆ˜ì • ë¶ˆê°€
+// main ¼öÁ¤ ºÒ°¡
 int main() {
-    Student kim(20211221, "Kim", "Gwang-Ju,Dong-Gu");   // í•™ìƒ ê°ì²´ ìƒì„±
-    Student park(20211411, "Park", "Gwang-Ju,Nam-Gu");  // í•™ìƒ ê°ì²´ ìƒì„±
+    Student kim(20211221, "Kim", "Gwang-Ju,Dong-Gu");   // ÇĞ»ı °´Ã¼ »ı¼º
+    Student park(20211411, "Park", "Gwang-Ju,Nam-Gu");  // ÇĞ»ı °´Ã¼ »ı¼º
     
-    Student lee = park;                   // í•™ìƒ ê°ì²´ ìƒì„±
+    Student lee = park;                   // ÇĞ»ı °´Ã¼ »ı¼º
     
-    int id;                               //  í•™ìƒ ì •ë³´ ì…ë ¥ ë¶€ë¶„
+    int id;                               //  ÇĞ»ı Á¤º¸ ÀÔ·Â ºÎºĞ
     string name, address;
     cout <<  "Enter ID : ";
     cin >> id;
@@ -78,26 +78,26 @@ int main() {
     cout <<  "Enter address : ";
     cin >> address;
     
-    lee.set_id(id);                         // í•™ìƒ id ì •ë³´ ë³€ê²½
-    lee.set_name(name.c_str());             // í•™ìƒ name ì •ë³´ ë³€ê²½
-    lee.set_address(address.c_str());       // í•™ìƒ address ì •ë³´ ë³€ê²½
+    lee.set_id(id);                         // ÇĞ»ı id Á¤º¸ º¯°æ
+    lee.set_name(name.c_str());             // ÇĞ»ı name Á¤º¸ º¯°æ
+    lee.set_address(address.c_str());       // ÇĞ»ı address Á¤º¸ º¯°æ
     
-    kim.show();                             // í•™ìƒ ì •ë³´ ì¶œë ¥
-    park.show();                            // í•™ìƒ ì •ë³´ ì¶œë ¥
-    lee.show();                             // í•™ìƒ ì •ë³´ ì¶œë ¥
+    kim.show();                             // ÇĞ»ı Á¤º¸ Ãâ·Â
+    park.show();                            // ÇĞ»ı Á¤º¸ Ãâ·Â
+    lee.show();                             // ÇĞ»ı Á¤º¸ Ãâ·Â
 }
 
-/* í”„ë¡œê·¸ë¨ ì‹¤í–‰ê²°ê³¼
+/* ÇÁ·Î±×·¥ ½ÇÇà°á°ú
 
-(ì¶œë ¥)Enter ID : (ì…ë ¥)202111111
-(ì¶œë ¥)Enter name : (ì…ë ¥)LeeCheolSu
-(ì¶œë ¥)Enter address : (ì…ë ¥)Gwang-Ju,NamGu
-(ì¶œë ¥)ID : 20211221, Name : Kim, Address : Gwang-Ju,Dong-Gu
-(ì¶œë ¥)ID : 20211411, Name : Park, Address : Gwang-Ju,Nam-Gu
-(ì¶œë ¥)ID : 202111111, Name : LeeCheolSu, Address : Gwang-Ju,NamGu
-(ì¶œë ¥)Destructor ID : 202111111
-(ì¶œë ¥)Destructor ID : 20211411
-(ì¶œë ¥)Destructor ID : 20211221
+(Ãâ·Â)Enter ID : (ÀÔ·Â)202111111
+(Ãâ·Â)Enter name : (ÀÔ·Â)LeeCheolSu
+(Ãâ·Â)Enter address : (ÀÔ·Â)Gwang-Ju,NamGu
+(Ãâ·Â)ID : 20211221, Name : Kim, Address : Gwang-Ju,Dong-Gu
+(Ãâ·Â)ID : 20211411, Name : Park, Address : Gwang-Ju,Nam-Gu
+(Ãâ·Â)ID : 202111111, Name : LeeCheolSu, Address : Gwang-Ju,NamGu
+(Ãâ·Â)Destructor ID : 202111111
+(Ãâ·Â)Destructor ID : 20211411
+(Ãâ·Â)Destructor ID : 20211221
 
 */
 
