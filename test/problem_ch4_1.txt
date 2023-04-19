@@ -1,28 +1,12 @@
-// 입출력 예시와 main 함수 코드를 보고 class와 함수를 구현하라...
-//입출력 예시
-//출력:Enter name
-//입력:Frodo
-//출력:Enter age
-//입력:64
-//출력:Frodo age 64
-//출력:Baggins age 100
-//출력:Frodo age 65
-
-#include < iostream >
-#include < string >
-using namespace std;
-
-class hobbit {
-public:
-    string name;
-    int age;
-    //여기에 코드 작성 
-    //....
-   
-};
-
-//여기에 함수 작성...
-
+//* 입출력 예시와 main 함수 코드를 보고 class와 함수를 구현하라...
+//* 입출력 예시
+//* 출력:Enter name
+//* 입력:Frodo
+//* 출력:Enter age
+//* 입력:64
+//* 출력:Frodo age 64
+//* 출력:Baggins age 100
+//* 출력:Frodo age 65
 
 int main()
 {
