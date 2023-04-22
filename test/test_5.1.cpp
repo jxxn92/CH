@@ -21,41 +21,55 @@ public:
 // 아래  코드 작성
 Student::Student(int id, const char* name, const char* address)
 {
-    this -> id = id;
-    this -> name = name;
+  this -> id = id;
+  this -> name = new char[strlen(name)+1];
+  strcpy(this->name,name);
+  this -> address = new char[strlen(address)+1];
+  strcpy(this->address,address);
 }
 
 
 Student::Student(Student& student)
 {
-  // 코드 작성
+  this -> id = student.id;
+  this -> name = new char[strlen(student.name)+1];
+  strcpy(this->name,student.name);
+  this -> address = new char[strlen(student.address)+1];
+  strcpy(this->address,student.address);
+
 }
 
 Student::~Student(){
-  // 코드 작성
+  cout << "Destructor ID : " << id << endl;
+  delete [] name;
+  delete [] address;
 }
 
 void Student::set_id(int id)
 {
-  // 코드 작성
+  this -> id = id;
 }
 
 
 void Student::set_name(const char* name)
 {
-  // 코드 작성
+  //delete [] this->name;
+  //this->name = new char[strlen(name)+1];
+  strcpy(this->name,name);
 }
 
 
 void Student::set_address(const char* address)
 {
-  // 코드 작성
+  //delete [] this -> address;
+  //this->address = new char[strlen(address)+1];
+  strcpy(this->address,address);
 }
 
 
 void Student::show()
 {
-  // 코드 작성
+  cout << "ID : " << id << ", Name : " << name << ", Address : " << address << endl;
 }
 
 // main 수정 불가
@@ -83,17 +97,4 @@ int main() {
     lee.show();                             // 학생 정보 출력
 }
 
-/* 프로그램 실행결과
-
-(출력)Enter ID : (입력)202111111
-(출력)Enter name : (입력)LeeCheolSu
-(출력)Enter address : (입력)Gwang-Ju,NamGu
-(출력)ID : 20211221, Name : Kim, Address : Gwang-Ju,Dong-Gu
-(출력)ID : 20211411, Name : Park, Address : Gwang-Ju,Nam-Gu
-(출력)ID : 202111111, Name : LeeCheolSu, Address : Gwang-Ju,NamGu
-(출력)Destructor ID : 202111111
-(출력)Destructor ID : 20211411
-(출력)Destructor ID : 20211221
-
-*/
 
