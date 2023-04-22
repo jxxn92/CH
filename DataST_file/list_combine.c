@@ -8,6 +8,7 @@ typedef struct ListNode{
     element data;
     struct ListNode *link;
 } ListNode;
+
 void error(char *message){
     fprintf(stderr,"%s",message);
     exit(1);
