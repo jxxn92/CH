@@ -16,6 +16,7 @@ public:
 };
 
 complex::complex(){
+    
 }
 
 complex::complex(int _a,int _i){
