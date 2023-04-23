@@ -30,9 +30,12 @@ public:
 };
 
 
-Buffer& append(Buffer& buffer,const string& stradd){
-	buffer.add(stradd);
-	return buffer;
+Buffer& append(Buffer& buf,const string& str){
+
+	buf.add(str);
+
+	return buf;
+
 }
 
 
