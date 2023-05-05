@@ -12,15 +12,14 @@ public:
     Person(const string& name={}, int id=0, int hour=0); // 持失切
     ~Person();                                           // 社瑚切
     void print(ostream& out) const;
+    Person(const Person& copy);
     friend ostream& operator << (ostream& out, const Person &p);
     Person& operator+=(const int& hor);
-    Person operator=(const Person& ob);
-    Person& operator+(const Person& op);
-    int operator()(){
-        int wage = this -> hours * 8600;
-        return wage;
-    }
-
+    Person& operator=(const Person& com);
+    Person operator+(const int& cnt);
+    Person operator++();
+    int operator()();
+    friend Person operator+(int op1,const Person& op2);
 };
 
 Person::Person(const string& name, int id, int hours) {
@@ -33,6 +32,12 @@ Person::~Person() {
     delete name;
 }
 
+Person::Person(const Person& copy){
+    this->name = new string(*copy.name);
+    this -> id = copy.id;
+    this -> hours = copy.hours;
+}
+
 void Person::print(ostream& out) const {
     out << "name(" << *name << ") ID(" << id << ") hours(" << hours << ")";
 }
@@ -42,12 +47,34 @@ Person& Person::operator+=(const int& hor){
     return *this;
 }
 
-Person Person::operator=(const Person& ob){
-    cout << ""
+Person& Person::operator=(const Person& com){
+
+    name = new string(*com.name);
+    id = com.id;
+    hours = com.hours;
+    return *this;
+
 }
 
-Person& Person::operator+(const Person& op){
-    Person tmp;
+Person Person::operator+(const int& cnt) {
+    Person tmp = *this;
+    tmp.hours += cnt;
+    return tmp;
+}
+
+Person operator+(int op1,const Person& op2){
+    Person tmp = op2;
+    tmp.hours = op1 + op2.hours;
+    return tmp;
+}
+
+int Person::operator()(){
+    return this -> hours * 8600;
+}
+
+Person Person::operator++(){
+    ++hours;
+    return *this;
 }
 
 ostream& operator << (ostream& out, const Person &p) {
@@ -88,7 +115,21 @@ void menu_switch(int menu)
         cout << "p2 = p1: " << (p2 = p1) << endl;
         cout << "p2     : " << p2 << endl;
         break;
-
+    case 5:
+        cout << "p1        : " << p1 << endl;
+        cout << "p1 + 3 + 4: " << (p1 + 3 + 4) << endl;
+        cout << "p1        : " << p1 << endl;
+        break;
+    case 6:
+        cout << "p1          : " << p1 << endl;
+        cout << "5 + (2 + p1): " << 5 + (2 + p1) << endl;
+        cout << "p1          : " << p1 << endl;
+        break;
+    case 8:
+        cout << "p1  : " << p1   << endl;
+        cout << "++p1: " << ++p1 << endl;
+        cout << "p1  : " << p1   << endl;
+        break;
     }
     cout << endl;
 }
