@@ -11,7 +11,7 @@ protected:
 public:
     Person(const string& name="", int id=0, int hour=0); // 생성자
     ~Person();                                           // 소멸자
-
+    Person(const Person& per);
     void print(ostream& out) const;
     void whatAreYouDoing() const;    // 현재하고 있는 일을 출력
     int  operator () () const;       // 임금 계산
@@ -33,6 +33,12 @@ Person::~Person() {
     delete name;
 }
 
+Person::Person(const Person& per){
+    name = new string(*per.name);
+    id = per.id;
+    hours = per.hours;
+}
+
 void Person::print(ostream& out) const {
     out << "n:" << *name << " i:" << id << " h:" << hours;
 }
@@ -47,12 +53,15 @@ Person & Person::operator += (int hours) {
 }
 
 void Person::whatAreYouDoing() const {
-
+    cout << "I am taking a rest." << endl;
 }
 
 Person* Person::clone() const {
-// TODO: 아래 nullptr 대신 구현하라. 자신을 복제한 새로운 객체의 포인터를 반환하라. 
-    return nullptr;
+/*     Person *per = new Person;
+    per -> name = new string(*name);
+    per -> id = id;
+    per -> hours = hours; */
+    return new Person(*this);
 }
 
 /******************************************************************************
@@ -67,6 +76,9 @@ public:
         const string& company, int payPerHour, int overtime);
     ~Employee() { cout << "~Employee(): n:" << *name << "   "; }
     void print(ostream& out) const;
+    void whatAreYouDoing() const; 
+    int  operator () () const;
+    Employee* clone() const; 
 };
 
 Employee::Employee(const string& name, int id, int hours,
@@ -82,8 +94,21 @@ void Employee::print(ostream& out) const{
     out << "n:" << *name << " i:" << id << " h:" << hours 
     << " c:" << company << " p:" << payPerHour << " o:" << overtime;
 }
+void Employee::whatAreYouDoing() const {
+    cout << "I am working." << endl;
+}
 
+int Employee::operator () () const {
+    return ((hours * payPerHour) + (overtime * 1.5 * payPerHour));
+}
 
+Employee* Employee::clone() const {
+/*     Person *per = new Person;
+    per -> name = new string(*name);
+    per -> id = id;
+    per -> hours = hours; */
+    return new Employee(*this);
+}
 
 /******************************************************************************
  * Class Student
@@ -98,6 +123,9 @@ public:
     Student(const string& name, int id, int hours,
         const string& university, int year, int tuition);
     ~Student() { cout << "~Student() : n:" << *name << "   "; }
+    void whatAreYouDoing() const; 
+    int  operator () () const;
+    Student* clone() const; 
 };
 
 Student::Student(const string& name, int id, int hours,
@@ -114,6 +142,21 @@ void Student::print(ostream& out) const{
     << " u:" << university << " y:" << year << " t:" << tuition;
 }
 
+void Student::whatAreYouDoing() const {
+    cout << "I am studying." << endl;
+}
+
+int Student::operator () () const {
+    return (1000 * hours);
+}
+
+Student* Student::clone() const {
+/*     Person *per = new Person;
+    per -> name = new string(*name);
+    per -> id = id;
+    per -> hours = hours; */
+    return new Student(*this);
+}
 
 /******************************************************************************
  * menu_switch() 함수: 선택된 메인 메뉴 항목을 실행함
@@ -128,9 +171,9 @@ string menuStr =
 void printPerson(Person *p)     { p->println(); }
 void addHours(Person *p)        { *p += 10; }
 void whatAreYouDoing(Person *p) { p->whatAreYouDoing(); }
-//int  whatIsYourPay(Person *p)   { return (*p)(); } // return p->operator()();와 동일
-//Person* copyPerson(Person *p)   { return p->clone(); }
-//void deletePerson(Person *p)    { delete p; }
+int  whatIsYourPay(Person *p)   { return (*p)(); } // return p->operator()();와 동일
+Person* copyPerson(Person *p)   { return p->clone(); }
+void deletePerson(Person *p)    { delete p; }
 
 void menu_switch(int menu)
 {
@@ -162,6 +205,36 @@ void menu_switch(int menu)
             cout << "s->whatAreYouDoing()          : "; s->whatAreYouDoing();
             cout << "whatAreYouDoing(s)            : "; whatAreYouDoing(s);
             cout << "(*s).Person::whatAreYouDoing(): "; (*s).Person::whatAreYouDoing();
+            break;
+        case 4:
+            cout << "(*e)()          : " << (*e)() << endl;
+            cout << "whatIsYourPay(e): " << whatIsYourPay(e) << endl;
+            cout << "s->operator()() : " << s->operator()() << endl; // (*s)()와 동일
+            cout << "whatIsYourPay(s): " << whatIsYourPay(s) << endl;
+            break;
+        case 5:
+            cout << "e->print(cout) : "; e->print(cout); cout << endl;
+            cout << "printPerson(e) : "; printPerson(e);
+            p = copyPerson(e);
+            cout << "p=copyPerson(e): "; printPerson(p);
+            cout << "((Employee*)e->clone())->print(cout): " << endl;
+            cout << "               : "; ((Employee*)e->clone())->print(cout); cout << endl;
+            cout << "s->print(cout) : "; s->print(cout); cout << endl;
+            cout << "printPerson(s) : "; printPerson(s);
+            p = copyPerson(s);
+            cout << "p=copyPerson(s): "; printPerson(p);
+            cout << "((Student*)s->clone())->print(cout): " << endl;
+            cout << "               : "; ((Student*)s->clone())->print(cout); cout << endl;
+            break;
+        case 6:
+            p = copyPerson(e);
+            cout << "p=copyPerson(e): "; printPerson(p); p->setName("p");
+            cout << "delete p       : "; delete p;
+            cout << "deletePerson(e): "; deletePerson(e);
+            p = copyPerson(s);
+            cout << "p=copyPerson(s): "; printPerson(p); p->setName("p");
+            cout << "deletePerson(p): "; deletePerson(p);
+            cout << "delete s       : "; delete s;
             break;
     }
     cout << endl;
