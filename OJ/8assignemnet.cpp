@@ -4,7 +4,7 @@
 #include <cstring>
 using namespace std;
 
-class Node {
+class Node{
 private:
     // 모든 멤버를 private으로 선언하여 외부에서 접근 못하게 하고,
     // BaseList에서만 Node의 모든 멤버에 접근할 수 있게 클래스 전체를 friend로 선언
@@ -13,7 +13,7 @@ private:
     Node *next;
     int value;
     Node(int value) { prev = next = nullptr; this->value = value; }
-    int getValue() { return value; // 현재 노드 다음에 n 노드를 추가한다.
+    int getValue() { return value;} // 현재 노드 다음에 n 노드를 추가한다.
     void add(Node *n) { next = n; n->prev = this; }
     // 현재 노드를 삭제하고 이 노드의 next 노드를 리턴한다.
     Node *remove() { Node *n = next; delete this; return n; }
