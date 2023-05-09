@@ -1,4 +1,3 @@
-// Á¤¼ö°ª value¸¦ ÀúÀåÇÏ°í ÀÖ´Â double linked ¸®½ºÆ® ³ëµå
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -6,29 +5,27 @@ using namespace std;
 
 class Node{
 private:
-    // ¸ğµç ¸â¹ö¸¦ privateÀ¸·Î ¼±¾ğÇÏ¿© ¿ÜºÎ¿¡¼­ Á¢±Ù ¸øÇÏ°Ô ÇÏ°í,
-    // BaseList¿¡¼­¸¸ NodeÀÇ ¸ğµç ¸â¹ö¿¡ Á¢±ÙÇÒ ¼ö ÀÖ°Ô Å¬·¡½º ÀüÃ¼¸¦ friend·Î ¼±¾ğ
     friend class BaseList;
     Node *prev;
     Node *next;
     int value;
     Node(int value) { prev = next = nullptr; this->value = value; }
-    int getValue() { return value;} // ÇöÀç ³ëµå ´ÙÀ½¿¡ n ³ëµå¸¦ Ãß°¡ÇÑ´Ù.
+    int getValue() { return value;} // í˜„ì¬ ë…¸ë“œ ë‹¤ìŒì— n ë…¸ë“œë¥¼ ì¶”ê°€í•œë‹¤.
     void add(Node *n) { next = n; n->prev = this; }
-    // ÇöÀç ³ëµå¸¦ »èÁ¦ÇÏ°í ÀÌ ³ëµåÀÇ next ³ëµå¸¦ ¸®ÅÏÇÑ´Ù.
+    // í˜„ì¬ ë…¸ë“œë¥¼ ì‚­ì œí•˜ê³  ì´ ë…¸ë“œì˜ next ë…¸ë“œë¥¼ ë¦¬í„´í•œë‹¤.
     Node *remove() { Node *n = next; delete this; return n; }
 };
 
-// ¿©·¯ °³ÀÇ ³ëµåµéÀ» °¡Áö°í ÀÖ´Â double linked ¸®½ºÆ®
+// ì—¬ëŸ¬ ê°œì˜ ë…¸ë“œë“¤ì„ ê°€ì§€ê³  ìˆëŠ” double linked ë¦¬ìŠ¤íŠ¸
 class BaseList {
 private:
-    Node *head;   // double linked ¸®½ºÆ®ÀÇ ¸Ç Ã³À½  ³ëµå¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ
-    Node *tail;   // double linked ¸®½ºÆ®ÀÇ ¸Ç ¸¶Áö¸· ³ëµå¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ
+    Node *head;   // double linked ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ì²˜ìŒ  ë…¸ë“œë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°
+    Node *tail;   // double linked ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ë§ˆì§€ë§‰ ë…¸ë“œë¥¼ ê°€ë¦¬í‚¤ëŠ” í¬ì¸í„°
 protected:
-    int size;     // ÇöÀç ¸®½ºÆ® ³»¿¡ ÀÖ´Â ³ëµå(µ¥ÀÌÅÍ)ÀÇ °³¼ö
+    int size;     // í˜„ì¬ ë¦¬ìŠ¤íŠ¸ ë‚´ì— ìˆëŠ” ë…¸ë“œ(ë°ì´í„°)ì˜ ê°œìˆ˜
 
-    BaseList() { head = tail = nullptr; size = 0; } // »ı¼ºÀÚ: ¸â¹ö ÃÊ±âÈ­
-    // ¼Ò¸êÀÚ: ¸ğµç ³ëµå¸¦ »èÁ¦ÇÔ
+    BaseList() { head = tail = nullptr; size = 0; } // ìƒì„±ì: ë©¤ë²„ ì´ˆê¸°í™”
+    // ì†Œë©¸ì: ëª¨ë“  ë…¸ë“œë¥¼ ì‚­ì œí•¨
     ~BaseList() { for (Node *n = head; n != nullptr; n = n->remove()); }
 
     void add_rear(int value);
@@ -36,108 +33,114 @@ protected:
     int remove_front();
 };
 
-// »õ·Î¿î ³ëµå(value °ªÀ» ÀúÀåÇÏ°í ÀÖÀ½)¸¦ »ı¼ºÇÑ ÈÄ ¸®½ºÆ®ÀÇ ¸Ç ¸¶Áö¸·¿¡ Ãß°¡
+// ìƒˆë¡œìš´ ë…¸ë“œ(value ê°’ì„ ì €ì¥í•˜ê³  ìˆìŒ)ë¥¼ ìƒì„±í•œ í›„ ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ë§ˆì§€ë§‰ì— ì¶”ê°€
 void BaseList::add_rear(int value) {
-    NodeÀÇ Æ÷ÀÎÅÍ º¯¼ö nÀ» ¼±¾ğÇÏ°í 
-    »õ·Î¿î Node¸¦ µ¿ÀûÀ¸·Î »ı¼º(value °ª Àü´Ş)ÇÏ¿© n¿¡ ÀúÀå;
-    ¸¸¾à tailÀÌ nullptrÀÌ ¾Æ´Ï¸é // NULL ´ë½Å¿¡ nullptr »ç¿ë
-        tailÀÇ ¸â¹öÇÔ¼ö add(n)È£ÃâÇÏ¿© ¸®½ºÆ®ÀÇ ¸Ç ³¡¿¡ nÀ» Ãß°¡ 
-        ¸®½ºÆ® ³¡¿¡ »õ·Î Ãß°¡ µÇ¾úÀ¸¹Ç·Î tailÀ» nÀ¸·Î ¼³Á¤
-    ¾Æ´Ñ °æ¿ì // ¸®½ºÆ®¿¡ ³ëµå°¡ ¾øÀ» °æ¿ì nÀÌ Ã¹ ³ëµå°¡ µÊ
-        tail°ú head °ªÀ» nÀ¸·Î ¼³Á¤
-    BaseListÀÇ µ¥ÀÌÅÍ °³¼ö¸¦ 1 Áõ°¡
+    Node *n = new Node(value);
+    if(tail != nullptr){
+        tail->add(n);
+        tail = n;
+    }
+    else{
+        head = tail = n;
+    }
+    size++;
 }
 
-// ¸®½ºÆ®ÀÇ ¸¶Áö¸· ³ëµå¸¦ Á¦°ÅÇÑ ÈÄ ±× ³ëµå¿¡ ÀúÀåµÈ value¸¦ ¸®ÅÏ
+// ë¦¬ìŠ¤íŠ¸ì˜ ë§ˆì§€ë§‰ ë…¸ë“œë¥¼ ì œê±°í•œ í›„ ê·¸ ë…¸ë“œì— ì €ì¥ëœ valueë¥¼ ë¦¬í„´
 int BaseList::remove_rear() {
-    ¸®½ºÆ®ÀÇ ³ëµå °³¼ö°¡ 0ÀÌ¸é -1 ¸®ÅÏ // list empty error
-    Á¤¼öÇü º¯¼ö valÀ» ¼±¾ğÇÏ°í, 
-    tail ³ëµå¿¡ ÀúÀåµÈ value °ªÀ» ¾ò¾î¿Í val¿¡ ÀúÀå
-    // »èÁ¦ÇÒ ³ëµåÀÇ ¾Õ ³ëµå¸¦ ÀúÀåÇÒ º¯¼ö prev ¼±¾ğ ¹× ÃÊ±âÈ­
-    Node * º¯¼ö prev¸¦ ¼±¾ğÇÏ°í tailÀÇ prev ¸â¹ö °ªÀ» º¯¼ö prev¿¡ ÀúÀå
-    tail ³ëµå¸¦ ¸Ş¸ğ¸®¿¡ ¹İ³³ÇÔ
-    ¸®½ºÆ®ÀÇ ³ëµå °³¼ö¸¦ 1 °¨¼Ò
-    º¯¼ö prev°¡ nullptrÀÌ ¾Æ´Ï¸é // »èÁ¦ÇÒ ³ëµåÀÇ ¾Õ ³ëµå°¡ Á¸ÀçÇÒ °æ¿ì
-        º¯¼ö prev°¡ Æ÷ÀÎÆ®ÇÏ´Â ³ëµåÀÇ next ¸â¹ö¸¦ nullptr·Î ¼³Á¤ÇÔ
-        tail¿¡ º¯¼ö prevÀ» ¼³Á¤ // ÀÌÁ¦ ¸¶Áö¸· ³ëµå´Â »èÁ¦µÈ ³ëµåÀÇ ¾Õ ³ëµå°¡ µÊ
-    ¾Æ´Ñ°æ¿ì Áï, º¯¼ö prev°¡ nullptrÀÌ¸é // ´õ ÀÌ»ó ³²Àº ³ëµå°¡ ¾ø´Â °æ¿ì
-         tail°ú head °ªÀ» nullptr·Î ¼³Á¤
-    val °ªÀ» ¸®ÅÏ
+    if(size == 0)
+        return -1;
+    int val = tail->value;
+
+    Node *prev = tail -> prev;
+    delete tail;
+    size--;
+    if(prev != nullptr){
+        prev->next = nullptr;
+        tail = prev;
+    }
+    else{
+        tail = head = nullptr;
+    }
+    return val;
 }
 
-// ¸®½ºÆ®ÀÇ ¸Ç Ã³À½ ³ëµå¸¦ Á¦°ÅÇÑ ÈÄ ±× ³ëµå¿¡ ÀúÀåµÈ value¸¦ ¸®ÅÏ
+// ë¦¬ìŠ¤íŠ¸ì˜ ë§¨ ì²˜ìŒ ë…¸ë“œë¥¼ ì œê±°í•œ í›„ ê·¸ ë…¸ë“œì— ì €ì¥ëœ valueë¥¼ ë¦¬í„´
 int BaseList::remove_front() {
-    ¸®½ºÆ®ÀÇ ³ëµå °³¼ö°¡ 0ÀÌ¸é -1 ¸®ÅÏ // list empty error
-    Á¤¼öÇü º¯¼ö valÀ» ¼±¾ğÇÏ°í, 
-    head ³ëµå¿¡ ÀúÀåµÈ value °ªÀ» ¾ò¾î¿Í val¿¡ ÀúÀå
-    // »èÁ¦ÇÒ ³ëµåÀÇ µÚ ³ëµå¸¦ ÀúÀåÇÒ º¯¼ö next ¼±¾ğ ¹× ÃÊ±âÈ­
-    Node * º¯¼ö next¸¦ ¼±¾ğÇÏ°í headÀÇ next ¸â¹ö °ªÀ» º¯¼ö next¿¡ ÀúÀå
-    head ³ëµå¸¦ ¸Ş¸ğ¸®¿¡ ¹İ³³ÇÔ
-    ¸®½ºÆ®ÀÇ ³ëµå °³¼ö¸¦ 1 °¨¼Ò
-    º¯¼ö next°¡ nullptrÀÌ ¾Æ´Ï¸é // »èÁ¦ÇÒ ³ëµåÀÇ µÚ ³ëµå°¡ Á¸ÀçÇÒ °æ¿ì
-        º¯¼ö next°¡ Æ÷ÀÎÆ®ÇÏ´Â ³ëµåÀÇ prev ¸â¹ö¸¦ nullptr·Î ¼³Á¤ÇÔ
-        head¿¡ º¯¼ö next¸¦ ¼³Á¤ // ÀÌÁ¦ ¸Ç Ã¹ ³ëµå´Â »èÁ¦µÈ ³ëµåÀÇ µÚ ³ëµå°¡ µÊ
-    ¾Æ´Ñ°æ¿ì Áï, º¯¼ö next°¡ nullptrÀÌ¸é // ´õ ÀÌ»ó ³²Àº ³ëµå°¡ ¾ø´Â °æ¿ì
-         tail°ú head °ªÀ» nullptr·Î ¼³Á¤
-    val °ªÀ» ¸®ÅÏ
+    if(size == 0){
+        return -1;
+    }
+    int val = head->value;
+
+    Node *next = head -> next;
+    delete head;
+    size--;
+    if(next != nullptr){
+        next->prev = nullptr;
+        head = next;
+    }
+    else{
+        tail = head = nullptr;
+    }
+    return val;
 }
 
-class MyQueue ... {  	// BaseList¸¦ »ó¼Ó¹Ş°Ô ¼±¾ğÇØ¾ß ÇÔ
+class MyQueue :public BaseList {  	// BaseListë¥¼ ìƒì†ë°›ê²Œ ì„ ì–¸í•´ì•¼ í•¨
 public:
-    void enqueue(int value) {  // Å¥ÀÇ ¸Ç ³¡¿¡ ³ëµå Ãß°¡ ÈÄ value ÀúÀå
-        Base ListÀÇ ÀûÀıÇÑ ¸â¹öÇÔ¼ö¸¦ È£ÃâÇÔ 
+    void enqueue(int value) {  // íì˜ ë§¨ ëì— ë…¸ë“œ ì¶”ê°€ í›„ value ì €ì¥
+        add_rear(value);
     }
-    int dequeue() { // Å¥ÀÇ ¸Ç ¾ÕÀÇ ³ëµå »èÁ¦ÇÏ°í ³ëµåÀÇ value °ª ¸®ÅÏ
-        return Base ListÀÇ ÀûÀıÇÑ ¸â¹öÇÔ¼ö¸¦ È£ÃâÇÔ; 
+    int dequeue() { // íì˜ ë§¨ ì•ì˜ ë…¸ë“œ ì‚­ì œí•˜ê³  ë…¸ë“œì˜ value ê°’ ë¦¬í„´
+        return remove_front(); 
     }
-    int length() { Base List¿¡ ÀúÀåµÈ µ¥ÀÌÅÍÀÇ °¹¼ö¸¦ ¸®ÅÏ }
-    static void test(); // static ÇÔ¼öÀÓ
+    int length() { return size; }
+    static void test(); // static í•¨ìˆ˜ì„
 };
 
 void MyQueue::test() {
     MyQueue mQ;
     int size;
-    cout << "Å¥¿¡ »ğÀÔÇÒ Á¤¼öÀÇ °³¼ö? ";
+    cout << "íì— ì‚½ì…í•  ì •ìˆ˜ì˜ ê°œìˆ˜? ";
     cin >> size;
-    cout << "Å¥¿¡ enqueue()µÈ ¿ø¼Òµé : ";
+    cout << "íì— enqueue()ëœ ì›ì†Œë“¤ : ";
     for (int i = 0; i < size; i++) {
-        mQ.enqueue(i*100); // Å¥¿¡ »ğÀÔ
+        mQ.enqueue(i*100); // íì— ì‚½ì…
         cout << i*100 << ' ';
     }
-    cout << endl << "Å¥ÀÇ Å©±â: " << mQ.length() << endl;
-    cout << "Å¥¿¡¼­ dequeue()µÈ ¸ğµç ¿ø¼Òµé : ";
+    cout << endl << "íì˜ í¬ê¸°: " << mQ.length() << endl;
+    cout << "íì—ì„œ dequeue()ëœ ëª¨ë“  ì›ì†Œë“¤ : ";
     while (mQ.length() != 0)
-        cout << mQ.dequeue() << ' '; // Å¥¿¡¼­ Á¦°ÅÇÏ¿© Ãâ·Â
-    cout << endl << "Å¥ÀÇ ÇöÀç Å©±â : " << mQ.length() << endl;
+        cout << mQ.dequeue() << ' '; // íì—ì„œ ì œê±°í•˜ì—¬ ì¶œë ¥
+    cout << endl << "íì˜ í˜„ì¬ í¬ê¸° : " << mQ.length() << endl;
 }
 
 class MyStack : public BaseList {
 public:
-    void push(int value) { // ½ºÅÃÀÇ ¸Ç ³¡¿¡ ³ëµå Ãß°¡ ÈÄ value ÀúÀå
-        Base ListÀÇ ÀûÀıÇÑ ¸â¹öÇÔ¼ö¸¦ È£ÃâÇÔ; 
+    void push(int value) { // ìŠ¤íƒì˜ ë§¨ ëì— ë…¸ë“œ ì¶”ê°€ í›„ value ì €ì¥
+        add_rear(value); 
     }
-    int pop() { // ½ºÅÃÀÇ ¸Ç ³¡ÀÇ ³ëµå »èÁ¦ÇÏ°í ³ëµåÀÇ value °ª ¸®ÅÏ
-        return Base ListÀÇ ÀûÀıÇÑ ¸â¹öÇÔ¼ö¸¦ È£ÃâÇÔ; 
+    int pop() { // ìŠ¤íƒì˜ ë§¨ ëì˜ ë…¸ë“œ ì‚­ì œí•˜ê³  ë…¸ë“œì˜ value ê°’ ë¦¬í„´
+        return remove_rear(); 
     }
-    int length() { Base List¿¡ ÀúÀåµÈ µ¥ÀÌÅÍÀÇ °¹¼ö¸¦ ¸®ÅÏ }
-    static void test(); // static ÇÔ¼öÀÓ
+    int length() { return size; }
+    static void test(); // static í•¨ìˆ˜ì„
 };
 
 void MyStack::test() {
     MyStack mStack;
     int size;
-    cout << "½ºÅÃ¿¡ »ğÀÔÇÒ Á¤¼öÀÇ °³¼ö? ";
+    cout << "ìŠ¤íƒì— ì‚½ì…í•  ì •ìˆ˜ì˜ ê°œìˆ˜? ";
     cin >> size;
-    cout << "½ºÅÃ¿¡ push()µÈ ¿ø¼Òµé : ";
+    cout << "ìŠ¤íƒì— push()ëœ ì›ì†Œë“¤ : ";
     for (int i = 0; i < size; i++) {
-        mStack.push(i); // ½ºÅÃ¿¡ Çª½Ã
+        mStack.push(i); // ìŠ¤íƒì— í‘¸ì‹œ
         cout << i << ' ';
     }
-    cout << endl << "½ºÅÃ Å©±â: " << mStack.length() << endl;
-    cout << "½ºÅÃ¿¡¼­ pop()µÈ ¸ğµç ¿ø¼Òµé : ";
+    cout << endl << "ìŠ¤íƒ í¬ê¸°: " << mStack.length() << endl;
+    cout << "ìŠ¤íƒì—ì„œ pop()ëœ ëª¨ë“  ì›ì†Œë“¤ : ";
     while (mStack.length() != 0)
-        cout << mStack.pop() << ' '; // ½ºÅÃ¿¡¼­ ÆË
-    cout << endl << "½ºÅÃÀÇ ÇöÀç Å©±â : " << mStack.length() << endl;
+        cout << mStack.pop() << ' '; // ìŠ¤íƒì—ì„œ íŒ
+    cout << endl << "ìŠ¤íƒì˜ í˜„ì¬ í¬ê¸° : " << mStack.length() << endl;
 }
 
 int main()
