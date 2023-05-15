@@ -15,18 +15,29 @@ public:
 };
 
 int UI::printGetInt(string msg){
+    cout << msg;
+    int num;
+    cin >> num;
+    return num;
 }
 
 void UI::println(string msg){
+    cout << msg;
+    cout << endl;
 }
 
 void UI::print(string msg){
+    cout << msg;
 }
 
 int UI::getMainMenu(){
-
+    return printGetInt();
 }
 
+void getWidthHeight(int &width, int & height){
+    cout << "X축과 Y축으로 이동할 양은(정수 두개 입력)? >> ";
+    cin >> width >> height;
+}
 
 class Point{
     int x;
@@ -223,3 +234,35 @@ public:
     ~GraphicEditor();
     void run();   // 메인 메뉴를 보여 주고 사용자가 선택한 작업을 실행함 
 };
+
+GraphicEditor::GraphicEditor(){
+    pStart = pLast = nullptr;
+}
+void GraphicEditor::removeAllShapes(){
+    for (Shape *p = pStart, *q; p != nullptr; p = q) {
+        q = p->getNext();
+        delete p;
+    }
+    pStart = pLast = nullptr;
+}
+GraphicEditor::~GraphicEditor(){
+    removeAllShapes();
+}
+
+void GraphicEditor::add(Shape *p){ 
+    if(pStart == nullptr){
+        pStart = pLast = p;
+    }
+    else {
+        // [그림 9-11] 16행 부분 참조
+        pLast = pLast -> add((Shape *)p);  
+    }
+}
+
+bool GraphicEditor::empty(){
+    if(pStart == nullptr) {
+        UI의 적절한 멤버 함수 이용하여 "그려진 도형이 없습니다." 출력
+        적절한 값 리턴
+    }
+    적절한 값 리턴
+}
