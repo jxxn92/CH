@@ -22,8 +22,7 @@ int UI::printGetInt(string msg){
 }
 
 void UI::println(string msg){
-    cout << msg;
-    cout << endl;
+    cout << msg << endl;
 }
 
 void UI::print(string msg){
@@ -31,13 +30,19 @@ void UI::print(string msg){
 }
 
 int UI::getMainMenu(){
-    return printGetInt();
+    return printGetInt("종료:0, 모두보기:1, 자동삽입:2, 모두이동:3, 모두삭제:4 >> ");
 }
 
 void getWidthHeight(int &width, int & height){
     cout << "X축과 Y축으로 이동할 양은(정수 두개 입력)? >> ";
     cin >> width >> height;
 }
+
+void UI::getWidthHeight(int &width, int &height) {
+    cout << "X축과 Y축으로 이동할 양은(정수 두 개 입력)? >> ";
+    cin >> width >> height;
+}
+
 
 class Point{
     int x;
@@ -49,11 +54,13 @@ public:
 };
 
 Point::Point(int x, int y){
-
+    this -> x = x;
+    this -> y = y;
 }
 
 void Point::move(int width , int height){
-
+    x += width;
+    y += height;
 }
 
 string Point::toString(){
@@ -100,9 +107,7 @@ Line::Line(const Point &p1 , const Point& p2){
     this -> p1 = p1;
     this -> p2 = p2;
 }
-void Line::draw(){
-    cout << "Line" << endl;
-}
+
 void Line::draw(){
     UI::println("Line " + p1.toString() + " " + p2.toString());
 }
@@ -122,17 +127,13 @@ public:
     void move(int width, int height) override;
 };
 
-void Rect::draw(){
-    cout << "Rectangle" << endl;
-}
-
 Rect::Rect(const Point& p1, const Point& p2){
     this -> p1 = p1;
     this -> p2 = p2;
 }
 
 void Rect::draw(){
-    UI::println("Rectangler " + p1.toString() + " " + p2.toString());
+    UI::println("Rectangle " + p1.toString() + " " + p2.toString());
 }
 
 void Rect::move(int width,int height){
@@ -261,8 +262,113 @@ void GraphicEditor::add(Shape *p){
 
 bool GraphicEditor::empty(){
     if(pStart == nullptr) {
-        UI의 적절한 멤버 함수 이용하여 "그려진 도형이 없습니다." 출력
-        적절한 값 리턴
+        UI::print("그려진 도형이 없습니다.");
+        return true;
     }
-    적절한 값 리턴
+    else{
+        return false;
+    }
+}
+
+/* void GraphicEditor::allPaint(){ 
+    Shape *p = pStart;
+    for (int i = 0; p != nullptr; ++i, p = p->getNext()) {
+       // 인덱스 출력: 예), [1] 또는 [4]
+        cout << "[" + to_string(i) + "]: " << endl;
+        p -> paint();
+    }
+} */
+
+// 삽입된 모든 그래픽 객체들을 화면에 출력
+void GraphicEditor::allPaint() { 
+    // 처음부터 끝까지 linked list를 따라 가면서 도형을 그린다.
+    // [그림 9-11] 중간부분 참조할 것
+    Shape* p = pStart;
+    for (int i = 0; p != nullptr; ++i, p = p->getNext()) {
+        // 인덱스 출력: 예), [1] 또는 [4]
+        UI::print( "[" + to_string(i) + "]: " );
+        p -> paint(); // 도형 그리기 public 함수 호출
+    }
+}
+
+/* void GraphicEditor::allPaint() {
+    // 처음부터 끝까지 linked list를 따라 가면서 도형을 그린다.
+    // [그림 9-11] 중간부분 참조할 것
+    Shape* p = pStart;
+    for (int i = 0; p != nullptr; ++i, p = p->getNext()) {
+        cout << "[" + to_string(i) + "]: " << endl;
+        p->paint(); // 도형 그리기 public 함수 호출
+    }
+} */
+
+
+void GraphicEditor::autoInsert(){ 
+    // 자동 삽입할 그래픽 객체의 개수를 얻어 옴(난수 발생)
+    //randShapeType();
+    int size = Factory::getSize();
+    for(int i = 0 ; i < size ; i++){
+        add(Factory::create());
+    }
+    allPaint();
+}
+
+void GraphicEditor::allMove(){ 
+    if(empty()){
+        return;
+    }
+    int width, height;
+    UI::getWidthHeight(width,height);
+    Shape* p = pStart;
+    
+    for (int i = 0; p != nullptr; ++i, p = p->getNext()){
+        p->move(width,height);
+    }
+    allPaint();
+}
+
+// 현재 생성된 모든 객체를 삭제한다.
+void GraphicEditor::allRemove(){ 
+    if(empty()){
+        return;
+    }
+    else{
+        removeAllShapes();
+    }
+}
+
+// 메인 메뉴를 보여 주고 사용자가 선택한 작업을 실행함
+void GraphicEditor::run(){
+    // UI 클래스의 함수들은 모두 static 함수임; 함수 호출은 예제 6-10 참조
+    UI::println("그래픽 에디터입니다.");
+    while(true) {
+        int menu = UI::getMainMenu();
+        switch(menu) {
+        // 모두보기인 ALL_PAINT는 enum 열거자이며 상수처럼 사용가능하며
+        // GraphicEditor 클래스에 선언되어 있음
+        case ALL_PAINT : 
+            allPaint(); break;
+        case AUTO_INSERT :
+            autoInsert(); break;
+        case ALL_MOVE :
+            allMove(); break;
+        case ALL_REMOVE :
+            allRemove(); break;
+        case EXIT :
+            return;
+        default:
+            UI::println("명령 선택 오류");
+        }
+    }
+}
+
+/******************************************************************************
+ *
+ * main() 함수
+ *
+ ******************************************************************************/
+
+int main()
+{
+    GraphicEditor g;
+    g.run();  // g는 포인터 변수가 아닌 일반 객체임
 }
