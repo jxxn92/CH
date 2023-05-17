@@ -54,7 +54,7 @@ public:
 };
 
 void templateClass() {
-    Store< int > is;
+    Store<int> is;
     int i = is.get();
     cout << "is.get()   : " << i << endl;
     is.set(3);
@@ -62,7 +62,7 @@ void templateClass() {
     i = is.add(4);
     cout << "is.add(4)  : " << i << endl;
 
-    Store< string > ss("S1");
+    Store<string> ss("S1");
     string s = ss.get();
     cout << "ss.get()   : " << s << endl;
     ss.set("S3");
@@ -78,13 +78,9 @@ void templateClass() {
 #include <vector>
 #include <algorithm>
 
-vector< int > iv;
-map< int, string > mp;
+vector<int> iv;
+map<int, string> mp;
 
-void printVector(string msg = {}) {}
-void vectorAppend() {}
-void vectorDisplay() {}
-void vectorSort() {}
 void vectorLambda() {}
 
 // map의 모든 원소의 (키, 값) 쌍을 출력한다.
@@ -98,6 +94,47 @@ void printMap(string msg = {}) {
         // p는 mp에 저장된 각 원소를 의미하며 p.first가 키, p.second가 value 값임
     cout << endl;
 }
+
+void printVector(string msg = {}) {
+	if (!msg.empty()){
+        cout << msg << endl;
+    }
+    cout << "vector: ";
+    for(int i = 0; i < iv.size(); i++){
+        cout << iv[i] << " " ;
+    }
+
+    cout << endl;
+}
+
+void vectorAppend() {
+	//rnd.setSeed(); // 지시가 있을 때까지 주석을 해제하지 마시오. 
+    if (!iv.empty()) iv.clear(); // iv에 기존 원소가 있으면 모두 제거함
+
+    for(int i = 0 ; i < 10 ; i++){
+        iv.push_back(rnd());
+    }
+    // 난수 생성방법: rnd() 함수를 호출한 후 그 리턴 값을 벡터에 추가하면 됨 
+    //            rnd()는 [10, 29] 범위의 난수 값을 발생시킴
+}
+
+// 벡터에 10개의 값을 삽입한 후 벡터 내용을 출력한다.
+void vectorDisplay() {
+    vectorAppend();
+    printVector();
+}
+
+void vectorSort() {
+    vectorAppend();
+    printVector("before sort");
+
+    //TODO: 벡터 iv 전체를 정렬하라.
+    sort(iv.begin(),iv.end());
+
+    printVector("after sort"); // 작은 수에서 큰 수 순서로 출력되어야 함
+}
+
+
 
 void vectorToMap() {}
 void find_map() {}
