@@ -142,6 +142,10 @@ void vectorToMap() {
     if(!mp.empty()){
         mp.clear();
     }
+    
+    for(int i = 0 ; i < iv.size(); i++){
+        mp.insert(make_pair(iv[i],"s"+to_string(iv[i] % 10)));
+    }
     //TODO: 벡터의 각 원소 값 val에 대해, 키로 val을 사용하고, 값으로 "S"+"val%10" 문자열을 
     //TODO: 만들어 맵 mp에 삽입하라. 예) 원소가 25라면 (25, "S5") 쌍이 삽입됨.
     //TODO: 정수 25%10를 문자열로 변환하는 함수는 to_string(25%10)이다.
