@@ -81,7 +81,6 @@ void templateClass() {
 vector<int> iv;
 map<int, string> mp;
 
-void vectorLambda() {}
 
 // map의 모든 원소의 (키, 값) 쌍을 출력한다.
 void printMap(string msg = {}) {
@@ -108,7 +107,7 @@ void printVector(string msg = {}) {
 }
 
 void vectorAppend() {
-	//rnd.setSeed(); // 지시가 있을 때까지 주석을 해제하지 마시오. 
+	rnd.setSeed(); // 지시가 있을 때까지 주석을 해제하지 마시오. 
     if (!iv.empty()) iv.clear(); // iv에 기존 원소가 있으면 모두 제거함
 
     for(int i = 0 ; i < 10 ; i++){
@@ -144,7 +143,7 @@ void vectorToMap() {
     }
     
     for(int i = 0 ; i < iv.size(); i++){
-        mp.insert(make_pair(iv[i],"s"+to_string(iv[i] % 10)));
+        mp.insert(make_pair(iv[i],"S"+to_string(iv[i] % 10)));
     }
     //TODO: 벡터의 각 원소 값 val에 대해, 키로 val을 사용하고, 값으로 "S"+"val%10" 문자열을 
     //TODO: 만들어 맵 mp에 삽입하라. 예) 원소가 25라면 (25, "S5") 쌍이 삽입됨.
@@ -152,9 +151,65 @@ void vectorToMap() {
     //TODO: 이 함수의 원형은 string to_string(int v); 이다.
 
     printMap("vector => map");
-}void find_map() {}
-void mapFind() {}
-void mapToVector() {}
+}
+void vectorLambda() {
+    vectorAppend();
+    printVector("before add");
+    int start = seed + 1;
+
+    auto lmd = [start](int& element){
+        element = element + start;
+    };
+    // 람다함수는 매개변수로 넘어 온 벡터 원소에 캡처리스트 변수 start 값을 더해 준다.
+    // 주의: 매개변수와 캡처리스트의 데이타 타입을 잘 지정해야 한다. call by value?, reference?, or pointer?
+
+    start++;// 이 문장의 위치는 반드시 위 람다함수 선언 뒤에 있어야 한다.
+    
+    for_each(iv.begin(),iv.end(),lmd);
+
+    printVector("after add"); 
+}
+
+void find_map() {
+    int key = rnd();
+
+    if(mp.find(key) == mp.end()){
+        cout << "key(" << key << ") not found" << endl;
+    }
+    else{
+        cout << "(" << key << ", " << mp.at(key) << ")" << endl;
+    }
+    // TODO: mp에서 key를 검색한 후,
+    //       키가 존재하면 (키, 값) 쌍을 출력하고,
+    //       키가 존재하진 않을 경우 "key(키) not found"를 출력한다.
+}
+
+void mapFind() {
+    vectorToMap();
+    find_map();
+    find_map();
+    find_map();
+}
+void mapToVector() {
+    vectorToMap();
+
+    iv.clear();
+    //TODO: 벡터 iv의 모든 원소를 제거한다.
+
+
+    for (auto p: mp)
+        iv.push_back(p.first);
+    // p는 struct pair { int first; string second; } 형의 구조체 변수이며
+    // p는 mp에 저장된 각 원소를 의미하며 p.first가 키, p.second가 value 값임
+
+
+
+    //TODO: 맵 mp의 모든 키 값을 순서적으로 벡터 iv에 추가하라.
+    // 힌트: mp 내의 각 원소 키를 구하는 방법은 printMap()을 참조하라.
+    // map은 tree를 이용하여 모든 원소를 키 값 순서로 관리하므로 키 순으로 자동 정렬된다.
+
+    printVector("map => vector");
+}
 
 /******************************************************************************
  * menu_switch() 함수: 선택된 메인 메뉴 항목을 실행함
