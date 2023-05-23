@@ -1,13 +1,3 @@
-/******************************************************************************
-
- 이번 프로젝트는 정수형 벡터 클래스 vector를 이용하여 대량의 정수형 값을 저장하고 있다가
- 검색, 삭제, 추가 등의 기능을 수행하는 Conatiner 클래스를 작성하는 것이다.
-
- 프로그램의 전체 구성도와 실행결과는 아래와 같다.
-
-******************************************************************************/
-
-// 대량의 데이터를 순서적으로 저장하고 있는 컨테이너 클래스
 #include <iostream>
 #include <string>
 #include <cstring>
@@ -37,7 +27,7 @@ void Container::add(int inc) {
 }
 
 bool Container::get(int index, int &value) {
-	if(index < 0 || index == v.size()){
+	if(index < 0 || index >= v.size()){
 		return false;
 	}
 	else{
@@ -52,21 +42,20 @@ int Container::find(int value) {
 		if(v.at(i) == value ){
 			return i;
 		}
-		else{
-			return -1;
-		}
 	}
+	return -1;
 }
 
 bool Container::remove(int value) {
     // 벡터의 특정 원소를 삭제하기 위해선 iterator을 이용해야 한다.
 	vector<int>::iterator it;
-    따라서 vector v의 iterator it 변수를 선언하고 
-    for 문을 이용하여 loop 돌면서 각각의 it에 대해
-        *it와 value가 같은 값인 it를 찾아서 
-            v.erase(it)를 호출하여 해당 원소를 삭제하고,
-            바로 true 리턴
-    동일한 값을 하나도 찾지 못할 경우 false 반환 
+	for(it = v.begin();it != v.end(); it++){
+		if(*it == value){
+			v.erase(it);
+			return true;
+		}
+	}
+	return false;
 }
 
 void Container::print() {
