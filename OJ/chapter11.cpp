@@ -25,28 +25,20 @@ public:
 
 
 // 여기에 필요한 연산자, 조작자 등의 함수를 구현하시오.
-ostream& operator << (ostream& stream, const Point& a){
-    stream.fill('*');
-    stream.width(7);
-    stream << hex << showbase << a.x << ", ";
+ostream& operator<<(ostream& stream, const Point& a) {
 
-    stream.fill('.');
-    stream.width(6);
-    stream << oct << left << showbase << a.y <<", ";
+    stream << hex << showbase;
+    stream << setfill('*') << setw(7) << a.x << ", ";
+    stream << oct << showbase;
+    stream << setfill('.') << setw(6) << left << a.y << ", ";
+    stream << dec << noshowbase;
+    stream << boolalpha << (a.x == a.y);
+    stream << noboolalpha;
 
-    if(a.x == a.y){
-        stream << boolalpha << true;
-    }
-    else{
-        stream << boolalpha << false;
-    }
-
-    stream << right << dec << noboolalpha << noshowbase;
-    stream.fill(' ');
-    
-
+    stream << setfill(' ') << setw(6) << right;
     return stream;
 }
+
 
 ostream& leftp(ostream& outs){
     return outs << "( ";
