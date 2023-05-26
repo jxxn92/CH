@@ -49,18 +49,51 @@ int main(){
     cout << "x : " << x << " y : " << y << " z : " << z << endl;
 
 } */
-
+/* 
 #include <iostream>
 using namespace std;
 
 int main(){
-    int arr[3] = {1,2,3};
-    int (&ref)[3] = arr;
+    
+    int arr[3][2] = {1,2,3,4,5};
+    int (&ref)[3][2] = arr;
 
-    ref[0] = 2;
-    ref[1] = 3;
-    ref[2] = 1;
+    ref[0][0] = 2;
+    ref[1][0] = 3;
+    ref[2][0] = 1;
 
     cout << arr[0] << " " << arr[1] << " " << arr[2] << " " << endl;
+    return 0;
+} */
+
+
+#include <iostream>
+
+class Animal {
+private: //private 로 선언해서 외부에서 값을 변경하지 못하도록 설정
+    int food;
+    int weight;
+public:
+    void set_animal(int _food, int _weight) {
+        food = _food;
+        weight = _weight;
+}
+void increase_food(int inc) {
+    food += inc;
+    weight += (inc / 3);
+}
+void view_stat() {
+    std::cout << "이 동물의 food   : " << food << std::endl;
+    std::cout << "이 동물의 weight : " << weight << std::endl;
+}
+};  // 세미콜론 잊지 말자!
+
+int main() {
+    Animal animal;
+    animal.set_animal(100, 50);
+    animal.increase_food(30);
+
+    animal.view_stat();
+    
     return 0;
 }
