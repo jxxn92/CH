@@ -25,6 +25,9 @@ public:
 	void show() { cout <<  "radius = "  << radius <<  endl;}
 	void setRadius(int r) { this->radius = r;}
 	int  getRadius() { return this->radius;}
+	friend Circle& operator+ (const Circle& op1, const Circle& op2);
+	Circle& operator<< (const int& tmp);
+	friend Circle& operator+(const int tmp,const Circle& op2);
 
             /*****************************************************************/
 	/*  여기에 ( Circle 객체 =  Circle 객체 +  Circle 객체 )  처리를 위한 내부 연산자 함수 선언 */
@@ -34,7 +37,7 @@ public:
 	
 
             
-	/*  여기에  (Circle 객체 =  int +  Circle 객체)  처리를 위한 외부 연산자 함수를 클래스 내에 프레드 함수 선언 */
+	/*  여기에  (Circle 객체 =  int +  Circle 객체)  처리를 위한 외부 연산자 함수를 클래스 내에 프렌드 함수 선언 */
 	
 
 	/*****************************************************************/
@@ -45,12 +48,26 @@ public:
 
 /*****************************************************************/
 /* 여기에 ( Circle 객체 =  Circle 객체 +  Circle 객체 )  처리를 위한 내부 연산자 함수 구현 */
+Circle& operator+ (const Circle& op1, const Circle& op2){
+	Circle *tmp = new Circle;
+	tmp->radius = op1.radius + op2.radius;
+	return *tmp;
+}
 
 
 /* 여기에  ( Circle 객체 <<  int ) 처리를 위한 내부 연산자 함수 구현 */
+Circle& Circle::operator<<(const int& tmp){
+	this -> radius += tmp;
+	return *this;
+}
 
 
 /* 여기에  (Circle 객체 =  int +  Circle 객체)  처리를 위한 외부 연산자 함수 구현 */
+Circle& operator+(const int op1,const Circle& op2){
+	Circle *tmp = new Circle;
+	tmp -> radius = op1 + op2.radius;
+	return *tmp;
+}
 
 /*****************************************************************/
 
