@@ -30,19 +30,83 @@ hyundai, kia, genesis class는 전부 hyundai_kia class에서 상속 받았다.
 using namespace std;
 
 class hyundai_kia{
+public:
+	virtual string lineup();
+	virtual string find(string choice);
 };
+
+string hyundai_kia::lineup(){
+	return "Avante Sonata Grandeur";
+}
+
+string hyundai_kia::find(string choice){
+	if( choice == "Avante" || choice == "Sonata" || choice == "Grandeur"){
+		return "car available";
+	}
+	else{
+		return "car unavailable";
+	}
+}
+
 
 class hyundai : public hyundai_kia{
-
+public:
+	string lineup() override;
+	string find(string choice) override;
 };
+
+string hyundai::lineup(){
+	return "Avante Sonata Grandeur";
+}
+
+string hyundai::find(string choice){
+	if( choice == "Avante" || choice == "Sonata" || choice == "Grandeur"){
+		return "car available";
+	}
+	else{
+		return "car unavailable";
+	}
+}
 
 class kia : public hyundai_kia{
+public:
+	string lineup() override;
+	string find(string choice) override;
 
 };
+
+string kia::lineup(){
+	return "Soul Niro Sportage Sorento Stinger";
+}
+
+string kia::find(string choice){
+	if( choice == "Soul" || choice == "Niro" || choice == "Sportage" || choice == "Sorento" || choice == "Stinger"){
+		return "car available";
+	}
+	else{
+		return "car unavailable";
+	}
+}
 
 class genesis:public hyundai_kia{
+public:
+	string lineup() override;
+	string find(string choice) override;
 
 };
+
+string genesis::lineup(){
+	return "g70 g80 g90 gv70 gv80";
+}
+
+string genesis::find(string choice){
+	if( choice == "g70" || choice == "g80" || choice == "g90" || choice == "gv70" || choice == "gv80"){
+		return "car available";
+	}
+	else{
+		return "car unavailable";
+	}
+}
 
 //아래 main 함수는 수정 불가...
 int main()
