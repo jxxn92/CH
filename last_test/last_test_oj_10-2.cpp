@@ -45,7 +45,9 @@ void displayVector(vector< int >& v) { // vector의 모든 원소 출력함
     cout << "vector[size=" << v.size() << "]: ";
 
     // TODO: 벡터 v의 모든 원소를 출력하라.
-
+    for(int i = 0; i < v.size(); i++){
+        printf("%d",v.at(i));
+    }
     cout << endl;
 }
 
@@ -53,7 +55,9 @@ void createVector(vector< int >& v) {  // 벡터에 RAND_COUNT개의 원소를 삽입하고 
 
     // TODO: RAND_COUNT개(10개)의 난수를 발생시켜 벡터 v에 추가하라.
     //       rnd.getInt()의 리턴 값이 난수이다.
-
+    for(int i = 0 ; i < 10; i++){
+        v.push_back(rnd.getInt());
+    }
     displayVector(v);
 }
 
