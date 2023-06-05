@@ -1,11 +1,7 @@
-
 #include <iostream>
 #include <string>
 #include <cstring>
 using namespace std;
-
-
-//다음은 Box 클래스 정의의 일부분이다.
 
 class Box {
 private:
@@ -21,31 +17,29 @@ public:
         itemWeight = 0;
     }
     int putItem(int item){
-        itemWeight = itemWeight + item;
-    }
-        /* if(itemWeight > permitWeight){
-            cout << "This box doesn't have available space.";
+        itemWeight += item;
 
+        if (itemWeight > permitWeight){
+            cout << "This box doesn't have available space." << endl;
+        }
+    }
+    friend istream& operator >> (istream& ins, Box& b){
+        if(b.label != "" ||  b.itemWeight != 0){
+            cout << "This box is not empty. You can change only label of this box" << endl;
+            cout << "Box label : ";
+            ins >> b.label;
         }
         else{
-            cout << "Box available weight : " << permitWeight - itemWeight;
-        } */
-
-    friend istream& operator >> (istream& ins, Box& a);
-    friend ostream& operator << (ostream& stream, const Box& a);
-
+        cout << "Box label and weight : ";
+        ins >> b.label >> b.permitWeight;
+        }
+    }
+    friend ostream& operator << (ostream& stream, Box& b){
+        stream << "[[[[[ BOX ]]]]]" << endl;
+        stream << "Box label : " << b.label << endl;
+        stream << "Box available weight : " << b.permitWeight - b.itemWeight << endl;
+    }
 };
-istream& operator >> (istream& ins, Box& a){
-    ins >> a.label >> a.itemWeight;
-};
-ostream& operator<<(ostream& stream, const Box& a) {
-    
-    stream << "[[[[[ BOX ]]]]]" << endl;
-    stream << "Box label : " << a.label << endl;
-    stream << "Box available weight : " << a.permitWeight - a.itemWeight << endl;
-}
-
-//다음은 main 함수의 내용이다.
 
 int main() {
     Box box, box2("Book", 30);   //  두 개의 박스 객체 생성
