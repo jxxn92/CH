@@ -12,7 +12,7 @@ public:
     virtual void use(){
         cout << "item but nothing happens" << endl;
     }
-    virtual void sell(){
+    void sell(){
         cout << "item for " << price << " golds" << endl;
     }
 };
@@ -25,20 +25,16 @@ public:
     void use() override{
         cout << "weapon and attacks" << endl;
     }
-    void sell() override{
+    void sell(){
         cout << "weapon for " << price << " golds" << endl;
     }
 };
+
 class potion:public item{
 public:
-    potion(int p = 10){
-        this -> price = p;
-    }
-    void use() override{
+    potion(int p = 10):item(p){}
+    void use()override{
         cout << "potion and feels better" << endl;
-    }
-    void sell() override {
-        cout << "item for " << price << " golds" << endl;
     }
 };
 
@@ -63,6 +59,7 @@ int main() {
     use(name, &thing);
     use(name, &sword);
     use(name, &healing);
+
     sell(name, &thing);
     sell(name, &sword);
 
