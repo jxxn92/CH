@@ -8,12 +8,12 @@ class Container {
 private:
 	vector<int> v;
 public:
-	void push(int value);	// value¸¦ ÄÁÅ×ÀÌ³Ê¿¡ »ğÀÔ
-	void add(int inc);		// ÄÁÅ×ÀÌ³Ê¿¡ »ğÀÔµÈ ¸ğµç ¿ø¼Ò¿¡ inc¸¦ ´õÇÔ
-	bool get(int index, int &value);// ÄÁÅ×ÀÌ³ÊÀÇ index(¹è¿­Ã³·³ 0ºÎÅÍ ½ÃÀÛ) À§Ä¡¿¡ ÀÖ´Â ¿ø¼Ò °ªÀ» ¹İÈ¯
-	int  find(int value);	// value °ªÀ» °¡Áø ¿ø¼ÒÀÇ ÀÎµ¦½º¸¦ ¸®ÅÏÇÔ
-	bool remove(int value);	// value °ªÀ» °¡Áø ¿ø¼Ò¸¦ »èÁ¦ÇÏ°í true ¸®ÅÏ, Á¸ÀçÇÏÁö ¾ÊÀ¸¸é false
-	void print();			// ÄÁÅ×ÀÌ³Ê¿¡ »ğÀÔµÈ ¸ğµç ¿ø¼Ò¸¦ ¼ø¼­ÀûÀ¸·Î Ãâ·Â
+	void push(int value);	// valueë¥¼ ì»¨í…Œì´ë„ˆì— ì‚½ì…
+	void add(int inc);		// ì»¨í…Œì´ë„ˆì— ì‚½ì…ëœ ëª¨ë“  ì›ì†Œì— incë¥¼ ë”í•¨
+	bool get(int index, int &value);// ì»¨í…Œì´ë„ˆì˜ index(ë°°ì—´ì²˜ëŸ¼ 0ë¶€í„° ì‹œì‘) ìœ„ì¹˜ì— ìˆëŠ” ì›ì†Œ ê°’ì„ ë°˜í™˜
+	int  find(int value);	// value ê°’ì„ ê°€ì§„ ì›ì†Œì˜ ì¸ë±ìŠ¤ë¥¼ ë¦¬í„´í•¨
+	bool remove(int value);	// value ê°’ì„ ê°€ì§„ ì›ì†Œë¥¼ ì‚­ì œí•˜ê³  true ë¦¬í„´, ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ false
+	void print();			// ì»¨í…Œì´ë„ˆì— ì‚½ì…ëœ ëª¨ë“  ì›ì†Œë¥¼ ìˆœì„œì ìœ¼ë¡œ ì¶œë ¥
 };
 
 void Container::push(int value){
@@ -34,7 +34,7 @@ bool Container::get(int index, int &value) {
 		value = v.at(index);
 		return true;
 	}
-	    // ÄÁÅ×ÀÌ³ÊÀÇ index´Â º¤ÅÍÀÇ index¿Í µ¿ÀÏÇÑ ÀÇ¹Ì¸¦ °¡Áø´Ù.
+	    // ì»¨í…Œì´ë„ˆì˜ indexëŠ” ë²¡í„°ì˜ indexì™€ ë™ì¼í•œ ì˜ë¯¸ë¥¼ ê°€ì§„ë‹¤.
 }
 
 int Container::find(int value) {
@@ -47,7 +47,7 @@ int Container::find(int value) {
 }
 
 bool Container::remove(int value) {
-    // º¤ÅÍÀÇ Æ¯Á¤ ¿ø¼Ò¸¦ »èÁ¦ÇÏ±â À§ÇØ¼± iteratorÀ» ÀÌ¿ëÇØ¾ß ÇÑ´Ù.
+    // ë²¡í„°ì˜ íŠ¹ì • ì›ì†Œë¥¼ ì‚­ì œí•˜ê¸° ìœ„í•´ì„  iteratorì„ ì´ìš©í•´ì•¼ í•œë‹¤.
 	vector<int>::iterator it;
 	for(it = v.begin();it != v.end(); it++){
 		if(*it == value){
@@ -71,14 +71,14 @@ void test_int(int size) {
 	int max = min + size - 1;
 	int mid = min + size / 2;
 
-	// size°³ ¸¸Å­ ÀÚµ¿À¸·Î ¿ø¼Ò¸¦ »ğÀÔÇÑ´Ù.
+	// sizeê°œ ë§Œí¼ ìë™ìœ¼ë¡œ ì›ì†Œë¥¼ ì‚½ì…í•œë‹¤.
 	for (int i = 0; i < size; i++)
 		c.push(min+i);
 	cout << "push: ";
 	c.print();
 
 	int value;
-	cout << boolalpha; // boolean °ªÀÌ true, false·Î Ãâ·ÂµÇ°Ô ÇÔ
+	cout << boolalpha; // boolean ê°’ì´ true, falseë¡œ ì¶œë ¥ë˜ê²Œ í•¨
 	cout << "get(" << size/2 << "): " << c.get(size/2, value) << " : " << value << endl;
 	cout << "get(" << size << "): " << c.get(size, value) << " : " << value << endl;
 	cout << "get(" << -1 << "): " << c.get(-1, value) << " : " << value << endl << endl;
@@ -108,7 +108,7 @@ int main()
 }
 
 /******************************************************************************
-    ÇÁ·Î±×·¥ ½ÇÇà °á°ú
+    í”„ë¡œê·¸ë¨ ì‹¤í–‰ ê²°ê³¼
  ******************************************************************************
 Enter the number of elements : 5
 
