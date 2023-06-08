@@ -1,24 +1,25 @@
 /*************************************************************************
  * 아래 MyStack 클래스는 정수형 데이터를 push(), pop()할 수 있는 스택이다.
  *************************************************************************/
-
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
+template <typename T>
 class MyStack {
-    vector< int > v;
+    vector<T> v;
 public:
-    void push(int e);
-    bool pop(int &e);
+    void push(T e);
+    bool pop(T &e);
 };
-
-void MyStack::push(int e)    {
+template <typename T>
+void MyStack<T>::push(T e)    {
     v.push_back(e);
 }
 
-bool MyStack::pop(int &e) {
+template <typename T>
+bool MyStack<T>::pop(T &e) {
     if (v.size() == 0)
         return false;        // 스택이 비었을 경우
     int last = v.size() - 1; // 벡터의 마지막 원소에 대한 인덱스

@@ -10,6 +10,27 @@ public:
 	friend ostream& operator << (ostream& stream, Line op2);
 };
 
+istream& operator >> (istream& stream, Line& op2){
+    stream >> op2.length >> op2.length;
+}
+
+ostream& operator << (ostream& stream, Line op2){
+    if(op2.length == 3){
+        stream << "***" << endl;
+    }
+    else if(op2.length == 2){
+        stream << "**" << endl;
+    }
+    else{
+        stream << "*" << endl;
+    }
+    return stream;
+}
+
+void getcall(){
+    
+}
+
 // 여기에 필요한 함수들을 모두 구현하시오.
 
 int main() {
@@ -20,7 +41,7 @@ int main() {
 	cout << b;
 	cout << c;
 
-        cout << endl;
+    cout << endl;
 	cin.ignore(2, '\n'); // 입력 버퍼에 남아 있는 '\r'나 '\n' 문자들 제거
 
         //(2) 
