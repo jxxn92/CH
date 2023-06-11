@@ -10,12 +10,12 @@ protected:
     int hours;     // 일한 시간
 public:
     Person(const string& name="", int id=0, int hour=0); // 생성자
-    ~Person();                                           // 소멸자
+    virtual ~Person();                                           // 소멸자
     virtual void print(ostream& out) const;
     Person(const Person& p);
     virtual void whatAreYouDoing() const;    // 현재하고 있는 일을 출력
-    int  operator () () const;       // 임금 계산
-    Person* clone() const;           // 자기 자신을 복제
+    virtual int  operator () () const;       // 임금 계산
+    virtual Person* clone() const;           // 자기 자신을 복제
 
     void println() const { print(cout); cout << endl; }
     Person& operator += (int hours); // 매개변수(일한 시간) hours을 멤버 hours에 더함
@@ -75,8 +75,8 @@ public:
     ~Employee() { cout << "~Employee(): n:" << *name << "   "; }
     void print(ostream& out) const override;
     void whatAreYouDoing() const override;
-    int  operator () () const;
-    Employee* clone() const;
+    int  operator () () const override;
+    Employee* clone() const override;
 };
 Employee::Employee(const string& name, int id, int hours,const string& company, int payPerHour, int overtime){
     this->id = id;
@@ -115,8 +115,8 @@ public:
     ~Student() { cout << "~Student() : n:" << *name << "   "; }
     void print(ostream& out) const override;
     void whatAreYouDoing() const override;
-    int  operator () () const;
-    Student* clone() const;
+    int  operator () () const override;
+    Student* clone() const override;
 };
 
 Student::Student(const string& name, int id, int hours,const string& university, int year, int tuition){
