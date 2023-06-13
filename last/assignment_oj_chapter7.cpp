@@ -138,7 +138,6 @@ MyStack& operator+(const MyStack& s1, const MyStack& s2) {
     MyStack tmp(nsize);
 
 	tmp.size = nsize;
-
     for (int i = 0; i < s1.size; i++) {
         tmp.element[i] = s1.element[i];
     }
@@ -149,7 +148,7 @@ MyStack& operator+(const MyStack& s1, const MyStack& s2) {
 
     tmp.tos = nsize - 1;
 
-    return tmp;
+	return tmp;
 }
 
 int main() {
@@ -189,7 +188,7 @@ int main() {
 	cout << "After automatic push, s3 is" << endl;
 	s3.print_stack();
 
-	s3 = ((s1 + s2) + s3);
+	s3 = s1 + s2 + s3;
 	cout << "After s3 = s1 + s2 + s3, s3 is" << endl;
 	s3.print_stack();
 
