@@ -4,10 +4,10 @@
  *   추가되는 연산자 함수는 클래스의 반지름을 이용하여 연산을 수행한다.
  *      1)  Circle 객체 =  Circle 객체 +  Circle 객체   
  *             우변 두 개의 Circle 객체가 갖고 있는 radius값을 더해서 
-               좌변의 Circle 객체의 radius 값에 대입한다.
+               	좌변의 Circle 객체의 radius 값에 대입한다.
  *      2)  Circle 객체 =  int +  Circle 객체
  *             우변에 주어진 int 값과 Circle 객체의 radius값을 더해서 
-               좌변의 Circle 객체의 radius 값에 대입한다.
+               	좌변의 Circle 객체의 radius 값에 대입한다.
  *      3)  Circle 객체 <<  int
 *              우변의 int 값을 좌변의 Circle 객체의 radius값에 대입한다.
  *************************************************************************/
@@ -26,14 +26,14 @@ public:
 
             /*****************************************************************/
 	/*  여기에 ( Circle 객체 =  Circle 객체 +  Circle 객체 )  처리를 위한 내부 연산자 함수 선언 */
-	
+	friend Circle operator+(const Circle& c1,const Circle& c2);
 
 	/*  여기에  ( Circle 객체 <<  int ) 처리를 위한 내부 연산자 함수 선언 */
 	
-
+	Circle operator<<(const Circle& c);
             
 	/*  여기에  (Circle 객체 =  int +  Circle 객체)  처리를 위한 외부 연산자 함수를 클래스 내에 프레드 함수 선언 */
-	
+	friend Circle operator+(const int& cnt,const Circle& c);
 
 	/*****************************************************************/
 
@@ -43,13 +43,27 @@ public:
 
 /*****************************************************************/
 /* 여기에 ( Circle 객체 =  Circle 객체 +  Circle 객체 )  처리를 위한 내부 연산자 함수 구현 */
+Circle operator+(const Circle& c1,const Circle& c2){
+	Circle *tmp = new Circle;
+	tmp->radius = c1.radius + c2.radius;
+	return *tmp;
+}
 
 
 /* 여기에  ( Circle 객체 <<  int ) 처리를 위한 내부 연산자 함수 구현 */
-
+Circle Circle::operator<<(const Circle& c){
+	this -> radius += c.radius;
+	return *this;
+}
 
 /* 여기에  (Circle 객체 =  int +  Circle 객체)  처리를 위한 외부 연산자 함수 구현 */
+Circle operator+(const int& cnt,const Circle& c){
+	Circle *tmp = new Circle;
+	tmp->radius = c.radius + cnt;
 
+	return *tmp;
+
+}
 /*****************************************************************/
 
 /*********************************************************************
@@ -71,8 +85,8 @@ int main () {
 
 	/* 두 Circle 객체 a, b의 radius값을  더해서  Circle 객체 c에 대입한다. */	
 	c = a + b ;
-           
-    	/* 주어진 숫자 radius와 Circle 객체 a의 radius값을 더해서 Circle 객체 d에 대입한다. */
+
+    /* 주어진 숫자 radius와 Circle 객체 a의 radius값을 더해서 Circle 객체 d에 대입한다. */
 	d = radius + a ;
 
 	a.show();
