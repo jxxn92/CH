@@ -28,8 +28,44 @@ class public_record : public police_record {
     string name;
     int age;
 public:
-    public_record(string name,);
+    public_record(string password,int prev_conviction,string name,int age);
+	void print_data();
+	void print_data(string password);
+	int check_conviction(string password);	
 };
+
+public_record::public_record(string password,int prev_conviction,string name,int age)
+							:police_record(password,prev_conviction){
+	this -> name = name;
+	this -> age = age;
+}
+
+void public_record::print_data(){
+	cout << "이름: " << name << " 나이: " << age << endl;
+}
+
+void public_record::print_data(string password){
+	if(police_record::check_conviction(password) != -1){
+		//cout << "이름: " << name << " 나이: " << age << endl;
+		print_data();
+		cout << "전과기록 " << police_record::check_conviction(password) << "건" << endl;
+	}
+	else{
+		print_data();
+		cout << "경찰기록 접근 거부" << endl;
+	}
+}
+
+int public_record::check_conviction(string password){
+	if(police_record::check_conviction(password) != -1){
+		cout << "전과기록 " << police_record::check_conviction(password) << "건" << endl;
+	}
+	else{
+		cout << "경찰기록 접근 거부" << endl;
+	}
+}
+
+
 //아래 main 함수는 수정 불가...
 int main()
 {
