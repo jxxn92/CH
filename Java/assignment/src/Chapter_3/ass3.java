@@ -1,3 +1,5 @@
+package Chapter_3;
+
 import java.util.*;
 import java.lang.*;
 
@@ -30,14 +32,28 @@ public class ass3 {
     }
 
     public static double[][] run2(Scanner s) {
+        double[][] arr;
         int row;
-        double arr[][];
-        while (true) {
-            System.out.print("Enter the number of rows in the real-number non-square array: ");
+
+        while (true){
             try {
+                System.out.print("The number of rows in the real-number non-square array: ");
                 row = s.nextInt();
                 arr = new double[row][];
-                break;
+
+                for(int i = 0; i < row; i ++) {
+                    arr[i] = new double[i+1];
+                    System.out.print("Input " + (i + 1) + " real numbers in row " + (i + 1) + ": ");
+                    for(int j = 0; j < arr[i].length; j++) {
+                        try {
+                            arr[i][j] = s.nextDouble();
+                        } catch (InputMismatchException e) {
+                            s.nextLine();
+                            j--;
+                            System.out.println("Input an integer or a real number!");
+                        }
+                    }
+                } break;
             } catch (InputMismatchException e) {
                 System.out.println("Input an integer!");
                 s.nextLine();
@@ -45,23 +61,7 @@ public class ass3 {
                 System.out.println("Input a positive integer!");
                 s.nextLine();
             }
-        }
-        for (int i = 0; i < row; i++) {
-            while (true) {
-                System.out.print("Input " + (i + 1) + " real numbers in row " + (i + 1) + ": ");
-                arr[i] = new double[i + 1];
-                for (int j = 0; j < arr[i].length; j++) {
-                    try {
-                        arr[i][j] = s.nextDouble();
-                    } catch (InputMismatchException e) {
-                        System.out.println("Input an integer or a real number!");
-                        s.nextLine();
-                        j--;
 
-                    }
-                }
-                break;
-            }
         }
         return arr;
     }

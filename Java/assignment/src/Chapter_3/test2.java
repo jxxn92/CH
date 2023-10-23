@@ -1,69 +1,72 @@
-import java.util.*;
+package Chapter_3;
 
-public class Main {
-    public static void printArray(double arr[][]) {
-        System.out.println("The number of rows in the array: " + arr.length);
-        for(int i = 0; i < arr.length; i++) {
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class test2 {
+
+    public static void printArray(double array[][]) {
+        System.out.println("The number of rows in the array: " + array.length);
+        for(int i = 0; i < array.length; i++) {
             System.out.print("arr[" + i + "] ");
-            for(int j = 0; j < arr[i].length; j++) {
-                System.out.print(arr[i][j] + " ");
+            for(int j = 0; j < array[i].length; j++) {
+                System.out.print(array[i][j] + " ");
             }
             System.out.println();
         }
     }
 
     public static double[][] run1(Scanner s) {
-        int row;
         System.out.print("The number of rows in the real-number non-square array: ");
-        row = s.nextInt();
-        double arr[][] = new double[row][];
+        int row = s.nextInt();
+        double[][] array = new double[row][];
 
         for(int i = 0; i < row; i++) {
             System.out.print("Input " + (i + 1) + " real numbers in row " + (i + 1) + ": ");
-            arr[i] = new double[i + 1];
-            for(int j = 0; j < arr[i].length; j++) {
-                arr[i][j] = s.nextDouble();
+            array[i] = new double[i + 1];
+
+            for(int j = 0; j < i + 1; j++) {
+                array[i][j] = s.nextDouble();
             }
         }
-        return arr;
+
+        return array;
     }
 
     public static double[][] run2(Scanner s) {
-        double[][] arr;
-        int row;
-
-        while(true){
-            try {
+        while(true) {
+            try{
                 System.out.print("The number of rows in the real-number non-square array: ");
-                row = s.nextInt();
-                arr = new double[row][];
+                int row = s.nextInt();
                 s.nextLine();
+                double[][] array = new double[row][];
 
                 for(int i = 0; i < row; i++) {
-                    arr[i] = new double[i + 1];
-                    System.out.print("Input " + (i + 1) + " real numbers in row " + (i + 1) + ": ");
-                    for(int j = 0; j < arr[i].length; j++) {
-                        try {
-                            arr[i][j] = s.nextDouble();
-                        } catch (InputMismatchException e) {
+                    while (true) {
+                        try{
+                            System.out.print("Input " + (i + 1) + " real numbers in row " + (i + 1) + ": ");
+                            array[i] = new double[i + 1];
+
+                            for(int j = 0; j < i + 1; j++){
+                                array[i][j] = s.nextDouble();
+                            }
+                            s.nextLine();
+                            break;
+
+                        }catch (InputMismatchException e) {
                             System.out.println("Input an integer or a real number!");
                             s.nextLine();
-                            j--;
-                            System.out.print("Input " + (i + 1) + " real numbers in row " + (i + 1) + ": ");
                         }
                     }
                 }
-                break;
+                return array;
             } catch (InputMismatchException e) {
                 System.out.println("Input an integer!");
                 s.nextLine();
             } catch (NegativeArraySizeException e) {
                 System.out.println("Input a positive integer!");
-                s.nextLine();
             }
-
         }
-        return arr;
     }
 
     public static void main(String[] args) {
@@ -83,4 +86,5 @@ public class Main {
         scanner.close();
         System.out.println("Exit.");
     }
+
 }

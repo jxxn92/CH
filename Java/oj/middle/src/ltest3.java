@@ -1,0 +1,2 @@
+public class ltest3 {
+}
